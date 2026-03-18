@@ -1,0 +1,1571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CompTIA Security+ Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0c0f;
+  --surface: #131318;
+  --card: #1a1a22;
+  --card2: #1f1f28;
+  --border: #2a2a38;
+  --border2: #333345;
+  --text: #e8e8f0;
+  --muted: #888899;
+  --dim: #555566;
+  --l1: #4f8ef7;
+  --l2: #f05252;
+  --l3: #22c97a;
+  --l4: #f5a623;
+  --l5: #a78bfa;
+  --l6: #22d3ee;
+  --l7: #f472b6;
+  --quiz: #ffd166;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  padding: 48px 24px 36px;
+  text-align: center;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(79,142,247,0.08) 0%, transparent 70%);
+  border-bottom: 1px solid var(--border);
+}
+.exam-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background: rgba(79,142,247,0.1);
+  border: 1px solid rgba(79,142,247,0.25);
+  color: var(--l1);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing:2px; text-transform:uppercase;
+  padding: 5px 14px; border-radius:20px; margin-bottom:20px;
+}
+h1 {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(32px, 6vw, 58px);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+h1 em { font-style:italic; font-weight:300; color: var(--muted); }
+header p { color: var(--muted); font-size:13px; letter-spacing:0.5px; }
+
+/* ── NAV ── */
+.nav-wrap {
+  position: sticky; top:0; z-index:200;
+  background: rgba(12,12,15,0.96);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-scroll { display:flex; gap:4px; padding: 10px 16px; overflow-x:auto; }
+.nav-scroll::-webkit-scrollbar { display:none; }
+.tab {
+  display:flex; align-items:center; gap:6px;
+  background:none; border: 1px solid transparent;
+  color: var(--muted); font-family:'Space Grotesk',sans-serif;
+  font-size:12px; font-weight:500;
+  padding: 7px 14px; border-radius:8px;
+  cursor:pointer; white-space:nowrap;
+  transition: all 0.2s;
+}
+.tab:hover { color:var(--text); background:var(--card); }
+.tab.active { color:var(--text); background:var(--card); border-color:var(--border2); }
+.tab-pip { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.tab.quiz-tab { }
+.tab.quiz-tab.active { border-color: rgba(255,209,102,0.4); }
+
+/* ── MAIN ── */
+.main { max-width:920px; margin:0 auto; padding:36px 16px 100px; }
+.panel { display:none; }
+.panel.active { display:block; }
+
+/* ── LESSON HEADER ── */
+.lhdr {
+  display:flex; align-items:flex-start; gap:20px;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:16px; padding:28px; margin-bottom:32px;
+  position:relative; overflow:hidden;
+}
+.lhdr-bar {
+  position:absolute; top:0; left:0; right:0; height:3px;
+}
+.lhdr-meta { flex:1; }
+.lhdr-num {
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px; letter-spacing:2px; text-transform:uppercase;
+  opacity:.6; margin-bottom:6px;
+}
+.lhdr-title {
+  font-family:'Fraunces',serif; font-size:22px; font-weight:700;
+  line-height:1.2; margin-bottom:8px;
+}
+.lhdr-desc { color:var(--muted); font-size:13px; line-height:1.6; }
+.lhdr-icon { font-size:42px; flex-shrink:0; }
+
+/* ── SECTION LABEL ── */
+.sec {
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px; letter-spacing:2.5px; text-transform:uppercase;
+  color:var(--dim); margin:32px 0 14px;
+  display:flex; align-items:center; gap:10px;
+}
+.sec::after { content:''; flex:1; height:1px; background:var(--border); }
+
+/* ── CONCEPT GRID ── */
+.cgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:12px; margin-bottom:8px; }
+.ccard {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:12px; padding:16px;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.ccard:hover { border-color:var(--border2); transform:translateY(-1px); }
+.cterm {
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px; font-weight:500; text-transform:uppercase;
+  letter-spacing:0.5px; margin-bottom:6px;
+}
+.cdef { color:var(--muted); font-size:13px; line-height:1.55; }
+.cdef strong { color:var(--text); font-weight:600; }
+
+/* ── BOXES ── */
+.abox {
+  background: rgba(245,166,35,0.05);
+  border:1px solid rgba(245,166,35,0.18);
+  border-left:3px solid var(--l4);
+  border-radius:10px; padding:14px 16px; margin:12px 0;
+  font-size:13px; color:#fde68a; line-height:1.6;
+}
+.mbox {
+  background: rgba(167,139,250,0.05);
+  border:1px solid rgba(167,139,250,0.18);
+  border-left:3px solid var(--l5);
+  border-radius:10px; padding:14px 16px; margin:12px 0;
+  font-size:13px; color:#ddd6fe; line-height:1.6;
+}
+.alabel, .mlabel {
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px; letter-spacing:1.5px; text-transform:uppercase;
+  margin-bottom:6px; font-weight:500;
+}
+.alabel { color:var(--l4); }
+.mlabel { color:var(--l5); }
+
+/* ── TABLE ── */
+.dtable {
+  width:100%; border-collapse:collapse;
+  font-size:13px; border-radius:10px;
+  overflow:hidden; border:1px solid var(--border);
+  margin:10px 0;
+}
+.dtable thead tr { background:rgba(30,30,40,0.9); }
+.dtable th {
+  padding:10px 14px; text-align:left;
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  text-transform:uppercase; letter-spacing:1px;
+  color:var(--dim); border-bottom:1px solid var(--border);
+}
+.dtable td {
+  padding:10px 14px;
+  border-bottom:1px solid var(--border);
+  color:var(--muted); vertical-align:top;
+}
+.dtable tr:last-child td { border-bottom:none; }
+.dtable tbody tr { background:var(--card); }
+.dtable tbody tr:nth-child(even) { background:rgba(26,26,34,0.5); }
+.dtable td strong { color:var(--text); font-weight:500; }
+
+/* ── LIST ── */
+.qlist { list-style:none; display:flex; flex-direction:column; gap:8px; margin:8px 0; }
+.qlist li {
+  display:flex; align-items:flex-start; gap:10px;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:8px; padding:10px 14px;
+  font-size:13px; line-height:1.5;
+}
+.qlist li .pip {
+  width:22px; height:22px; border-radius:50%;
+  font-size:10px; font-family:'JetBrains Mono',monospace;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; margin-top:1px; font-weight:700;
+}
+.qlist li strong { color:var(--text); font-weight:600; }
+.qlist li span { color:var(--muted); }
+
+/* ── INLINE QUIZ (per lesson) ── */
+.iqz { margin-top:8px; }
+.iqz-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:12px; padding:18px; margin-bottom:12px;
+}
+.iqz-q {
+  font-weight:500; font-size:14px; line-height:1.55; margin-bottom:14px;
+}
+.iqz-q .qnum {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--muted); margin-right:8px;
+}
+.opts { display:flex; flex-direction:column; gap:7px; }
+.opt {
+  background:none; border:1px solid var(--border);
+  border-radius:7px; padding:9px 14px;
+  color:var(--muted); font-family:'Space Grotesk',sans-serif;
+  font-size:13px; text-align:left; cursor:pointer;
+  transition:all 0.18s; display:flex; align-items:center; gap:10px;
+}
+.opt:hover { background:rgba(255,255,255,0.04); border-color:var(--border2); color:var(--text); }
+.opt.correct { background:rgba(34,201,122,0.1); border-color:var(--l3); color:#6ee7b7; }
+.opt.wrong { background:rgba(240,82,82,0.1); border-color:var(--l2); color:#fca5a5; }
+.opt.disabled { pointer-events:none; }
+.feedback {
+  margin-top:10px; padding:10px 14px; border-radius:7px;
+  font-size:13px; display:none; line-height:1.5;
+}
+.feedback.show { display:block; }
+.feedback.fb-ok { background:rgba(34,201,122,0.08); color:#6ee7b7; border:1px solid rgba(34,201,122,0.2); }
+.feedback.fb-no { background:rgba(240,82,82,0.08); color:#fca5a5; border:1px solid rgba(240,82,82,0.2); }
+
+/* ── QUIZ TAB ── */
+#quiz-panel .quiz-intro {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:16px; padding:28px; margin-bottom:28px;
+  text-align:center;
+}
+#quiz-panel .quiz-intro h2 {
+  font-family:'Fraunces',serif; font-size:26px; font-weight:700;
+  color:var(--quiz); margin-bottom:8px;
+}
+#quiz-panel .quiz-intro p { color:var(--muted); font-size:13px; }
+
+.lesson-quiz-block {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:14px; overflow:hidden; margin-bottom:20px;
+}
+.lqb-header {
+  display:flex; align-items:center; gap:12px;
+  padding:16px 20px;
+  border-bottom:1px solid var(--border);
+  cursor:pointer; user-select:none;
+}
+.lqb-header:hover { background:rgba(255,255,255,0.02); }
+.lqb-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.lqb-title { font-weight:600; font-size:14px; flex:1; }
+.lqb-count {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--muted); background:var(--card2);
+  padding:3px 10px; border-radius:20px;
+}
+.lqb-score {
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  padding:3px 10px; border-radius:20px; margin-left:6px;
+  background:rgba(34,201,122,0.1); color:var(--l3);
+  display:none;
+}
+.lqb-toggle { color:var(--dim); font-size:16px; transition:transform 0.2s; }
+.lqb-header.open .lqb-toggle { transform:rotate(180deg); }
+
+.lqb-body { padding:16px 20px; display:none; }
+.lqb-body.open { display:block; }
+
+.big-q-card {
+  background:var(--card2); border:1px solid var(--border);
+  border-radius:10px; padding:16px; margin-bottom:12px;
+}
+.big-q-text { font-weight:500; font-size:14px; margin-bottom:12px; line-height:1.55; }
+.big-q-num { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted); margin-right:8px; }
+
+/* progress bar */
+.progress-bar-wrap { background:var(--border); border-radius:8px; height:6px; margin:8px 0 0; overflow:hidden; }
+.progress-bar { height:100%; border-radius:8px; transition:width 0.4s ease; width:0%; }
+
+.quiz-summary {
+  background:var(--card2); border:1px solid var(--border);
+  border-radius:10px; padding:16px; margin-top:16px;
+  display:none; text-align:center;
+}
+.quiz-summary.show { display:block; }
+.quiz-summary h4 { font-family:'Fraunces',serif; font-size:20px; margin-bottom:6px; }
+.quiz-summary p { color:var(--muted); font-size:13px; }
+.quiz-summary .big-score { font-size:36px; font-weight:700; margin:8px 0; }
+.retry-btn {
+  background:var(--card); border:1px solid var(--border);
+  color:var(--text); font-family:'Space Grotesk',sans-serif;
+  font-size:13px; padding:8px 20px; border-radius:8px;
+  cursor:pointer; margin-top:12px; transition:all 0.2s;
+}
+.retry-btn:hover { background:var(--card2); border-color:var(--border2); }
+
+/* Lesson colors util */
+.c1{color:var(--l1)} .c2{color:var(--l2)} .c3{color:var(--l3)}
+.c4{color:var(--l4)} .c5{color:var(--l5)} .c6{color:var(--l6)}
+.c7{color:var(--l7)} .cq{color:var(--quiz)}
+
+@media(max-width:600px){
+  .cgrid{grid-template-columns:1fr;}
+  .lhdr-icon{display:none;}
+  h1{font-size:32px;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="exam-badge">📋 SY0-601 · Exam Prep · Lessons 1–7</div>
+  <h1>CompTIA Security+<br><em>Study Guide</em></h1>
+  <p>Expanded notes · Memory tricks · Per-section quizzes · Full test mode</p>
+</header>
+
+<div class="nav-wrap">
+  <div class="nav-scroll">
+    <button class="tab active" onclick="go(1,this)" data-t="1"><span class="tab-pip" style="background:var(--l1)"></span>L1 Security Roles</button>
+    <button class="tab" onclick="go(2,this)" data-t="2"><span class="tab-pip" style="background:var(--l2)"></span>L2 Threat Actors</button>
+    <button class="tab" onclick="go(3,this)" data-t="3"><span class="tab-pip" style="background:var(--l3)"></span>L3 Assessments</button>
+    <button class="tab" onclick="go(4,this)" data-t="4"><span class="tab-pip" style="background:var(--l4)"></span>L4 Social Eng &amp; Malware</button>
+    <button class="tab" onclick="go(5,this)" data-t="5"><span class="tab-pip" style="background:var(--l5)"></span>L5 Cryptography</button>
+    <button class="tab" onclick="go(6,this)" data-t="6"><span class="tab-pip" style="background:var(--l6)"></span>L6 PKI</button>
+    <button class="tab" onclick="go(7,this)" data-t="7"><span class="tab-pip" style="background:var(--l7)"></span>L7 Authentication</button>
+    <button class="tab quiz-tab" onclick="go('quiz',this)" data-t="quiz"><span class="tab-pip" style="background:var(--quiz)"></span>🧪 Quiz / Test</button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ═══════════ LESSON 1 ═══════════ -->
+<div id="p1" class="panel active">
+  <div class="lhdr">
+    <div class="lhdr-bar" style="background:var(--l1)"></div>
+    <div class="lhdr-meta">
+      <div class="lhdr-num c1">Lesson 01</div>
+      <div class="lhdr-title">Comparing Security Roles &amp; Controls</div>
+      <div class="lhdr-desc">Who does security? What tools do they use? This lesson sets the foundation — the CIA Triad, NIST functions, security roles, and how controls are categorized and applied.</div>
+    </div>
+    <div class="lhdr-icon">🛡️</div>
+  </div>
+
+  <div class="sec">CIA Triad — The 3 Pillars of Security</div>
+  <div class="cgrid">
+    <div class="ccard">
+      <div class="cterm c1">🔒 Confidentiality</div>
+      <div class="cdef">Only authorized people can <strong>see</strong> the data. Achieved through: encryption, access controls, MFA. Example: Only doctors see patient records.</div>
+    </div>
+    <div class="ccard">
+      <div class="cterm c1">✅ Integrity</div>
+      <div class="cdef">Data is <strong>accurate and unmodified</strong>. Nobody tampered with it. Achieved through: hashing, digital signatures, file permissions. Example: A prescription can't be altered in transit.</div>
+    </div>
+    <div class="ccard">
+      <div class="cterm c1">⚡ Availability</div>
+      <div class="cdef">Data is <strong>accessible when needed</strong>. Achieved through: redundancy, backups, load balancing, DDoS protection. Example: The hospital system must be online 24/7.</div>
+    </div>
+    <div class="ccard">
+      <div class="cterm c1">🖊️ Non-Repudiation</div>
+      <div class="cdef">A sender <strong>cannot deny</strong> having sent a message. Like a signed receipt. Achieved through: digital signatures. "I can prove YOU sent this."</div>
+    </div>
+    <div class="ccard">
+      <div class="cterm c1">DAD (Opposite of CIA)</div>
+      <div class="cdef"><strong>Disclosure</strong> (breaks Confidentiality), <strong>Alteration</strong> (breaks Integrity), <strong>Denial/Destruction</strong> (breaks Availability). Attackers aim for DAD.</div>
+    </div>
+    <div class="ccard">
+      <div class="cterm c1">Authentication vs Authorization</div>
+      <div class="cdef"><strong>Authentication</strong> = proving who you are (login). <strong>Authorization</strong> = what you're allowed to do (permissions). These are different! You can be authenticated but not authorized.</div>
+    </div>
+  </div>
+  <div class="abox"><div class="alabel">💡 Hospital Analogy</div>Confidentiality = only your doctor sees your chart. Integrity = prescriptions can't be altered. Availability = hospital systems never go down during emergencies.</div>
+  <div class="mbox"><div class="mlabel">🧠 Remember</div>CIA → Confidentiality, Integrity, Availability. Opposite = DAD (Disclosure, Alteration, Denial). Attacks break CIA; defenders protect CIA.</div>
+
+  <div class="sec">Security Roles & Responsibilities</div>
+  <table class="dtable">
+    <thead><tr><th>Role</th><th>What They Do</th><th>Reports To</th></tr></thead>
+    <tbody>
+      <tr><td><strong>CISO / CSO</strong></td><td>Chief Information Security Officer. Owns the company's overall security strategy, policy, and risk management.</td><td>CEO / Board</td></tr>
+      <tr><td><strong>SOC Analyst</strong></td><td>Security Operations Center — monitors logs, alerts, and network 24/7 for threats. Tier 1 (triage) → Tier 2 (investigate) → Tier 3 (hunt)</td><td>SOC Manager</td></tr>
+      <tr><td><strong>Pen Tester</strong></td><td>Ethical hacker hired to find weaknesses. Red team = attackers, Blue team = defenders, Purple team = both.</td><td>Security Manager</td></tr>
+      <tr><td><strong>DevSecOps</strong></td><td>"Shift left" — integrates security INTO development from day one instead of bolting it on afterward.</td><td>CTO / CISO</td></tr>
+      <tr><td><strong>CIRT / CERT</strong></td><td>Cyber Incident Response Team — handles breaches and security emergencies. The "firefighters" of cybersecurity.</td><td>CISO</td></tr>
+      <tr><td><strong>Data Owner</strong></td><td>Business executive responsible for classifying and protecting specific data assets.</td><td>CISO</td></tr>
+      <tr><td><strong>Data Custodian</strong></td><td>IT staff who actually implement the controls for protecting data (backup, encryption, access).</td><td>Data Owner</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec">NIST Cybersecurity Framework — 5 Functions</div>
+  <ul class="qlist">
+    <li><span class="pip c1" style="background:rgba(79,142,247,0.15)">1</span><div><strong>Identify</strong> <span>— Know your assets, systems, data, and risks. You can't protect what you don't know about. Includes: asset inventory, risk assessments, governance.</span></div></li>
+    <li><span class="pip c1" style="background:rgba(79,142,247,0.15)">2</span><div><strong>Protect</strong> <span>— Deploy safeguards. Firewalls, antivirus, training, access control, encryption, patch management.</span></div></li>
+    <li><span class="pip c1" style="background:rgba(79,142,247,0.15)">3</span><div><strong>Detect</strong> <span>— Monitor continuously. IDS/IPS, log analysis, SIEM alerts. Spot threats in real-time or near-real-time.</span></div></li>
+    <li><span class="pip c1" style="background:rgba(79,142,247,0.15)">4</span><div><strong>Respond</strong> <span>— React to incidents. Contain the threat, eradicate it, communicate with stakeholders, document everything.</span></div></li>
+    <li><span class="pip c1" style="background:rgba(79,142,247,0.15)">5</span><div><strong>Recover</strong> <span>— Restore systems and data. Lessons learned. Update policies. Get back to normal operations.</span></div></li>
+  </ul>
+  <div class="mbox"><div class="mlabel">🧠 Mnemonic</div><strong>"I Protect Detectives Responding Rapidly"</strong> → Identify · Protect · Detect · Respond · Recover</div>
+
+  <div class="sec">Security Control Categories</div>
+  <table class="dtable">
+    <thead><tr><th>Category</th><th>Who Implements It</th><th>Examples</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Technical / Logical</strong></td><td>Hardware &amp; software</td><td>Firewalls, antivirus, encryption, IDS, MFA, ACLs</td></tr>
+      <tr><td><strong>Operational / Administrative</strong></td><td>People and processes</td><td>Security guards, background checks, security awareness training, incident response procedures</td></tr>
+      <tr><td><strong>Managerial</strong></td><td>Oversight and governance</td><td>Risk assessments, security audits, policies, compliance reviews</td></tr>
+      <tr><td><strong>Physical</strong></td><td>Physical environment</td><td>Locks, fences, cameras, lighting, mantrap, biometric entry</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec">Control Functional Types (What They Do)</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm" style="color:var(--l3)">🛑 Preventive</div><div class="cdef"><strong>Stops the attack before it happens.</strong> Firewall rules, access control lists, locked doors, security awareness training, patch management.</div></div>
+    <div class="ccard"><div class="cterm" style="color:var(--l4)">👁️ Detective</div><div class="cdef"><strong>Detects during or after.</strong> Log files, IDS, SIEM, security cameras, motion sensors. Doesn't stop the attack — it NOTICES it.</div></div>
+    <div class="ccard"><div class="cterm" style="color:var(--l1)">🔧 Corrective</div><div class="cdef"><strong>Reduces damage after attack.</strong> Backups and restore, patch management after exploit, antivirus quarantine. Fixes the problem.</div></div>
+    <div class="ccard"><div class="cterm" style="color:var(--l5)">⚠️ Deterrent</div><div class="cdef"><strong>Discourages psychologically.</strong> Warning signs ("Trespassers will be prosecuted"), security cameras in plain view, legal notices. Doesn't physically stop anyone.</div></div>
+    <div class="ccard"><div class="cterm" style="color:var(--l2)">🚪 Physical</div><div class="cdef"><strong>Guards the physical space.</strong> Locks, guards, fences, mantraps, badge readers, lighting. Protects hardware and people.</div></div>
+    <div class="ccard"><div class="cterm" style="color:var(--l6)">♻️ Compensating</div><div class="cdef"><strong>Alternative when main control can't be used.</strong> Example: Can't patch a legacy system → put it behind an extra firewall instead. Same protection, different method.</div></div>
+  </div>
+  <div class="mbox"><div class="mlabel">🧠 Trick — Control Types</div><strong>P-D-C-D-P-C = "Pretty Detectives Correct Dangerous Perpetrators Continuously"</strong> → Preventive, Detective, Corrective, Deterrent, Physical, Compensating</div>
+
+  <div class="sec">🧪 Quick Check — Section by Section</div>
+  <div class="iqz">
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q1</span>Which CIA property ensures data has not been tampered with?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Confidentiality</button>
+        <button class="opt" onclick="ans(this,true)">Integrity</button>
+        <button class="opt" onclick="ans(this,false)">Availability</button>
+        <button class="opt" onclick="ans(this,false)">Non-Repudiation</button>
+      </div>
+      <div class="feedback">✅ Integrity = data hasn't been changed. Think of integrity as "honest data." Hashing proves integrity.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q2</span>A camera visible outside the entrance discourages attackers. What control type is this?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Detective</button>
+        <button class="opt" onclick="ans(this,false)">Preventive</button>
+        <button class="opt" onclick="ans(this,true)">Deterrent</button>
+        <button class="opt" onclick="ans(this,false)">Corrective</button>
+      </div>
+      <div class="feedback">✅ Deterrent = psychologically discourages. The camera doesn't stop anyone physically — it just makes them think twice.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q3</span>Your company can't patch an old industrial system. Instead, they isolate it on its own network segment. This is a _____ control.</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Corrective</button>
+        <button class="opt" onclick="ans(this,false)">Detective</button>
+        <button class="opt" onclick="ans(this,true)">Compensating</button>
+        <button class="opt" onclick="ans(this,false)">Preventive</button>
+      </div>
+      <div class="feedback">✅ Compensating = substitute control. When you can't apply the "normal" fix, you use an equivalent alternative.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q4</span>Which NIST function comes AFTER you detect a threat?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Protect</button>
+        <button class="opt" onclick="ans(this,false)">Recover</button>
+        <button class="opt" onclick="ans(this,true)">Respond</button>
+        <button class="opt" onclick="ans(this,false)">Identify</button>
+      </div>
+      <div class="feedback">✅ Order = Identify → Protect → Detect → Respond → Recover. After detection comes response (contain &amp; eradicate).</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q5</span>The DAD triad stands for what?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Detect, Analyze, Defend</button>
+        <button class="opt" onclick="ans(this,true)">Disclosure, Alteration, Denial/Destruction</button>
+        <button class="opt" onclick="ans(this,false)">Data, Access, Defense</button>
+        <button class="opt" onclick="ans(this,false)">Digital, Authentication, Defense</button>
+      </div>
+      <div class="feedback">✅ DAD = the attacker's goals, opposite of CIA. Disclosure breaks Confidentiality. Alteration breaks Integrity. Denial breaks Availability.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ LESSON 2 ═══════════ -->
+<div id="p2" class="panel">
+  <div class="lhdr">
+    <div class="lhdr-bar" style="background:var(--l2)"></div>
+    <div class="lhdr-meta">
+      <div class="lhdr-num c2">Lesson 02</div>
+      <div class="lhdr-title">Explaining Threat Actors &amp; Intelligence</div>
+      <div class="lhdr-desc">Who are the bad guys? What do they want? How do they get in? This lesson covers threat actors, attack vectors, and threat intelligence sources.</div>
+    </div>
+    <div class="lhdr-icon">🎭</div>
+  </div>
+
+  <div class="sec">Vulnerability · Threat · Risk — Core Definitions</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c2">🪟 Vulnerability</div><div class="cdef">A <strong>weakness</strong> in a system that CAN be exploited. Like an unlocked window. Exists even if no one is trying to use it.</div></div>
+    <div class="ccard"><div class="cterm c2">🦹 Threat</div><div class="cdef">The <strong>potential for exploitation</strong>. A threat actor who COULD climb through that window. A threat needs a vulnerability to become dangerous.</div></div>
+    <div class="ccard"><div class="cterm c2">📊 Risk</div><div class="cdef">Risk = <strong>Likelihood × Impact</strong>. How likely is the burglar to come? How bad if they do? Risk can be: accepted, avoided, transferred (insurance), or mitigated.</div></div>
+    <div class="ccard"><div class="cterm c2">💥 Exploit</div><div class="cdef">The <strong>actual attack</strong> — using the vulnerability to cause harm. Vulnerability + Threat Actor + Exploit = Incident.</div></div>
+  </div>
+  <div class="mbox"><div class="mlabel">🧠 Formula</div><strong>Risk = Vulnerability × Threat × Impact</strong>. No vulnerability = no risk. No threat = no risk. Reduce any factor to reduce overall risk.</div>
+
+  <div class="sec">Types of Threat Actors</div>
+  <table class="dtable">
+    <thead><tr><th>Actor</th><th>Who They Are</th><th>Motivation</th><th>Skill</th><th>Resources</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Script Kiddie</strong></td><td>Inexperienced hacker using pre-made tools they don't understand</td><td>Attention, fun, bragging rights</td><td>🔴 Low</td><td>Low</td></tr>
+      <tr><td><strong>Hacktivist</strong></td><td>Ideologically motivated groups (e.g., Anonymous)</td><td>Political / social change</td><td>🟡 Medium</td><td>Medium</td></tr>
+      <tr><td><strong>Criminal Syndicate</strong></td><td>Organized cybercrime groups, like gangs but online</td><td>Financial gain (ransomware, theft)</td><td>🟢 High</td><td>High</td></tr>
+      <tr><td><strong>State Actor / APT</strong></td><td>Nation-state sponsored hackers (e.g., Russia's Cozy Bear)</td><td>Espionage, military advantage, disruption</td><td>🔵 Elite</td><td>Massive</td></tr>
+      <tr><td><strong>Insider Threat</strong></td><td>Employee, contractor, or partner with internal access</td><td>Sabotage, financial gain, accident</td><td>Variable</td><td>Internal access</td></tr>
+      <tr><td><strong>Competitor</strong></td><td>Rival companies committing corporate espionage</td><td>Steal IP, disrupt operations</td><td>Variable</td><td>Variable</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec">Hacker Hat Colors</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c2">⚫ Black Hat</div><div class="cdef">Malicious, unauthorized hacking for personal gain or damage. The criminals. No permission, no ethics.</div></div>
+    <div class="ccard"><div class="cterm" style="color:#ddd">⬜ White Hat</div><div class="cdef">Ethical hackers hired by companies to find vulnerabilities. Full permission. "Penetration testers."</div></div>
+    <div class="ccard"><div class="cterm" style="color:#999">◼ Gray Hat</div><div class="cdef">Hack without permission but don't exploit for profit. May report vulnerabilities. Morally ambiguous. Still illegal.</div></div>
+    <div class="ccard"><div class="cterm" style="color:var(--l2)">🔴 Red Team</div><div class="cdef">Authorized attackers who simulate real-world attacks on an organization (more comprehensive than pen testers).</div></div>
+    <div class="ccard"><div class="cterm" style="color:var(--l1)">🔵 Blue Team</div><div class="cdef">Defenders — the internal security team that monitors, detects, and responds to the red team and real threats.</div></div>
+    <div class="ccard"><div class="cterm" style="color:var(--l5)">🟣 Purple Team</div><div class="cdef">Combination — Red + Blue working together. Red attacks, Blue defends, they share findings to improve security.</div></div>
+  </div>
+
+  <div class="sec">Attack Vectors — How They Get In</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c2">🖥️ Direct Access</div><div class="cdef">Physical access to the device. Boot from USB, steal the device, access an unlocked workstation.</div></div>
+    <div class="ccard"><div class="cterm c2">💾 Removable Media</div><div class="cdef">Infected USB drive left in a parking lot. Curious employee plugs it in → game over.</div></div>
+    <div class="ccard"><div class="cterm c2">📧 Email</div><div class="cdef">Malicious attachments or phishing links. Most common attack vector. Requires victim to click.</div></div>
+    <div class="ccard"><div class="cterm c2">📡 Remote / Wireless</div><div class="cdef">Cracking Wi-Fi passwords, stealing VPN credentials, exploiting open remote desktop ports.</div></div>
+    <div class="ccard"><div class="cterm c2">🏭 Supply Chain</div><div class="cdef">Attack a trusted vendor/supplier to get indirect access to the real target. E.g., SolarWinds hack.</div></div>
+    <div class="ccard"><div class="cterm c2">🌐 Web / Social Media</div><div class="cdef">Malicious downloads, drive-by browser exploits, fake social media profiles.</div></div>
+    <div class="ccard"><div class="cterm c2">☁️ Cloud</div><div class="cdef">One compromised cloud account can expose the entire organization's data and services.</div></div>
+  </div>
+  <div class="mbox"><div class="mlabel">🧠 Mnemonic — Attack Vectors</div><strong>DR ERWSC = "Daring Robbers Enter Rooms With Stolen Cards"</strong> → Direct, Removable, Email, Remote, Web, Supply chain, Cloud</div>
+
+  <div class="sec">Threat Intelligence Terms</div>
+  <table class="dtable">
+    <thead><tr><th>Term</th><th>What It Means</th></tr></thead>
+    <tbody>
+      <tr><td><strong>TTP</strong></td><td>Tactics, Techniques, Procedures — HOW adversaries behave. Their strategy (tactic), specific attack method (technique), and step-by-step process (procedure).</td></tr>
+      <tr><td><strong>IoC</strong></td><td>Indicator of Compromise — evidence an attack happened. Unauthorized software, suspicious logins, unusual outbound traffic, rogue devices.</td></tr>
+      <tr><td><strong>STIX</strong></td><td>Structured Threat Information Expression — standardized FORMAT/LANGUAGE for describing cyber threats. Think of it as the vocabulary.</td></tr>
+      <tr><td><strong>TAXII</strong></td><td>Trusted Automated eXchange of Indicator Information — the PROTOCOL for transmitting threat data between organizations. Think of it as the delivery system.</td></tr>
+      <tr><td><strong>OSINT</strong></td><td>Open-Source Intelligence — gathering info from public sources: Google, LinkedIn, job postings, social media. Anyone can do it.</td></tr>
+      <tr><td><strong>Dark Web</strong></td><td>Hidden internet accessible via TOR browser. Used by criminals to sell stolen data, credentials, exploit kits.</td></tr>
+      <tr><td><strong>APT</strong></td><td>Advanced Persistent Threat — sophisticated, ongoing, stealth attack campaign. Usually nation-state actors. "Advanced" = highly skilled, "Persistent" = long-term, "Threat" = active adversary.</td></tr>
+      <tr><td><strong>Threat Hunting</strong></td><td>Proactively searching for threats that have evaded automated detection. Analysts look for anomalies before alerts fire.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec">🧪 Quick Check</div>
+  <div class="iqz">
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q1</span>Risk is best described as a combination of what two factors?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Vulnerability and Exploit</button>
+        <button class="opt" onclick="ans(this,true)">Likelihood and Impact</button>
+        <button class="opt" onclick="ans(this,false)">Threat and Vulnerability</button>
+        <button class="opt" onclick="ans(this,false)">Asset Value and Threat</button>
+      </div>
+      <div class="feedback">✅ Risk = Likelihood × Impact. How LIKELY is the bad thing to happen × how BAD would it be.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q2</span>Which threat actor type typically has the MOST resources and highest skill level?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Script Kiddie</button>
+        <button class="opt" onclick="ans(this,false)">Criminal Syndicate</button>
+        <button class="opt" onclick="ans(this,true)">State Actor / APT</button>
+        <button class="opt" onclick="ans(this,false)">Hacktivist</button>
+      </div>
+      <div class="feedback">✅ Nation-state actors (APTs) have the most funding, best tools, and elite skill. They're the most dangerous.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q3</span>STIX and TAXII are used together. What is TAXII specifically responsible for?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Describing the format of threat data</button>
+        <button class="opt" onclick="ans(this,true)">Transmitting/delivering threat data between organizations</button>
+        <button class="opt" onclick="ans(this,false)">Encrypting threat intelligence feeds</button>
+        <button class="opt" onclick="ans(this,false)">Scanning for vulnerabilities</button>
+      </div>
+      <div class="feedback">✅ STIX = the language/format (what it says). TAXII = the protocol/delivery system (how it travels). STIX describes, TAXII delivers.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q4</span>An attacker compromises a software vendor to gain access to the vendor's customers. This is called a _____ attack.</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Watering Hole</button>
+        <button class="opt" onclick="ans(this,true)">Supply Chain</button>
+        <button class="opt" onclick="ans(this,false)">Spear Phishing</button>
+        <button class="opt" onclick="ans(this,false)">Insider Threat</button>
+      </div>
+      <div class="feedback">✅ Supply chain attack = target a trusted third party (vendor/supplier) to get indirect access to the real target. SolarWinds is the famous example.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q5</span>A white hat hacker is different from a black hat hacker because:</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">White hats use better tools</button>
+        <button class="opt" onclick="ans(this,true)">White hats have authorization and permission</button>
+        <button class="opt" onclick="ans(this,false)">White hats never break into systems</button>
+        <button class="opt" onclick="ans(this,false)">White hats only do passive reconnaissance</button>
+      </div>
+      <div class="feedback">✅ The ONLY difference is permission. White hat = hired ethical hacker with written authorization. Same skills, same tools — but legal and sanctioned.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ LESSON 3 ═══════════ -->
+<div id="p3" class="panel">
+  <div class="lhdr">
+    <div class="lhdr-bar" style="background:var(--l3)"></div>
+    <div class="lhdr-meta">
+      <div class="lhdr-num c3">Lesson 03</div>
+      <div class="lhdr-title">Performing Security Assessments</div>
+      <div class="lhdr-desc">How do we find weaknesses before attackers do? Reconnaissance tools, vulnerability scanning, and penetration testing — the art of ethical hacking.</div>
+    </div>
+    <div class="lhdr-icon">🔍</div>
+  </div>
+
+  <div class="sec">Key Recon &amp; Scanning Tools (Must Know for Exam)</div>
+  <table class="dtable">
+    <thead><tr><th>Tool</th><th>What It Does</th><th>Key Use</th></tr></thead>
+    <tbody>
+      <tr><td><strong>ipconfig / ifconfig</strong></td><td>Shows your own network config (IP, subnet, gateway, MAC)</td><td>First thing to run when diagnosing network issues</td></tr>
+      <tr><td><strong>ping</strong></td><td>Sends ICMP Echo Request to test if a host is alive</td><td>Basic connectivity test</td></tr>
+      <tr><td><strong>arp</strong></td><td>Shows ARP cache — IP-to-MAC address mappings</td><td>Detecting ARP spoofing/poisoning attacks</td></tr>
+      <tr><td><strong>traceroute / tracert</strong></td><td>Maps every hop (router) between you and the destination</td><td>Finding where network failures occur</td></tr>
+      <tr><td><strong>netstat</strong></td><td>Shows active connections, listening ports, routing table</td><td>Spot unauthorized connections or backdoors</td></tr>
+      <tr><td><strong>nslookup / dig</strong></td><td>DNS query tool — resolve hostnames, find mail servers</td><td>DNS reconnaissance</td></tr>
+      <tr><td><strong>Nmap</strong></td><td>The #1 port scanner. OS fingerprinting, service versions, scripts</td><td>Network mapping, vulnerability assessment</td></tr>
+      <tr><td><strong>Wireshark</strong></td><td>Graphical packet capture and analysis tool</td><td>Analyzing network traffic, finding credentials in cleartext</td></tr>
+      <tr><td><strong>tcpdump</strong></td><td>Command-line packet capture (Linux). Less GUI, more power.</td><td>Scripted capture, server environments</td></tr>
+      <tr><td><strong>Nessus</strong></td><td>Industry-leading commercial vulnerability scanner</td><td>Find CVEs across your entire network</td></tr>
+      <tr><td><strong>Metasploit</strong></td><td>Exploitation framework — automates launching known exploits</td><td>Pen testing, proving a vulnerability is exploitable</td></tr>
+      <tr><td><strong>Netcat (nc)</strong></td><td>The "Swiss Army knife" — port scan, file transfer, backdoors, chat</td><td>Versatile — used by both defenders and attackers</td></tr>
+      <tr><td><strong>Burp Suite</strong></td><td>Web application security testing tool</td><td>Finding SQL injection, XSS, and other web vulns</td></tr>
+    </tbody>
+  </table>
+  <div class="mbox"><div class="mlabel">🧠 Nmap Key Flags to Know</div>
+    <strong>-sS</strong> = SYN/Stealth scan (half-open, doesn't complete handshake)<br>
+    <strong>-sU</strong> = UDP scan (slower, for UDP ports like DNS/SNMP)<br>
+    <strong>-sV</strong> = Service version detection<br>
+    <strong>-O</strong> = OS fingerprinting<br>
+    <strong>-p-</strong> = Scan ALL 65,535 ports<br>
+    <strong>-A</strong> = Aggressive (OS + version + scripts + traceroute)
+  </div>
+
+  <div class="sec">Vulnerability Types</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c3">🕳️ Zero-Day</div><div class="cdef">Vulnerability <strong>unknown to the vendor</strong>. No patch exists. "Day zero" = the day the vendor learns it exists. Most dangerous type.</div></div>
+    <div class="ccard"><div class="cterm c3">📋 CVE</div><div class="cdef">Common Vulnerabilities and Exposures. Standardized ID system for known vulnerabilities. Format: CVE-YEAR-NUMBER (e.g., CVE-2021-44228 = Log4Shell). Maintained by Mitre.</div></div>
+    <div class="ccard"><div class="cterm c3">📊 CVSS</div><div class="cdef">Common Vulnerability Scoring System. Rates severity 0–10. Critical = 9–10 (patch IMMEDIATELY). High = 7–8.9. Medium = 4–6.9. Low = 0–3.9.</div></div>
+    <div class="ccard"><div class="cterm c3">⏱️ Race Condition</div><div class="cdef">A bug where <strong>timing matters</strong>. Attacker exploits the gap between when a system checks a condition and when it acts on it (TOCTOU — Time-of-Check/Time-of-Use).</div></div>
+    <div class="ccard"><div class="cterm c3">⚙️ Misconfiguration</div><div class="cdef">Incorrectly set up systems: default credentials, open ports, overly permissive ACLs. The #1 most common real-world vulnerability.</div></div>
+    <div class="ccard"><div class="cterm c3">📦 Unpatched Software</div><div class="cdef">Known vulnerabilities with patches available but not applied. Most ransomware exploits unpatched systems. Patch management is critical.</div></div>
+  </div>
+
+  <div class="sec">Penetration Testing — Know the Differences</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c3">⬛ Black Box</div><div class="cdef"><strong>Zero knowledge</strong>. Tester knows nothing about the target. Simulates an outside attacker. Most realistic but time-consuming.</div></div>
+    <div class="ccard"><div class="cterm c3">⬜ White Box</div><div class="cdef"><strong>Full knowledge</strong>. Tester has access to source code, network diagrams, credentials. Most thorough. Fastest. Used in code review.</div></div>
+    <div class="ccard"><div class="cterm c3">◼ Gray Box</div><div class="cdef"><strong>Partial knowledge</strong>. Tester has some info (like a regular user account). Simulates an insider or someone who obtained limited info.</div></div>
+    <div class="ccard"><div class="cterm c3">🎯 Active Recon</div><div class="cdef">Directly interacting with the target system. Port scans, ping sweeps, service enumeration. <strong>Leaves traces!</strong> Can be detected.</div></div>
+    <div class="ccard"><div class="cterm c3">🔭 Passive Recon</div><div class="cdef">Gathering info WITHOUT touching the target. Google, LinkedIn, job postings, DNS lookups. <strong>No traces.</strong> Target never knows.</div></div>
+    <div class="ccard"><div class="cterm c3">🔄 Pivot</div><div class="cdef">After compromising one system, use it as a springboard to attack deeper systems behind the firewall. "Island hopping."</div></div>
+  </div>
+  <div class="abox"><div class="alabel">💡 Analogy</div>Pen testing is like hiring a locksmith to try to break into your building and report back. They have your permission. A burglar doesn't. Same skills, totally different legality.</div>
+
+  <div class="sec">🧪 Quick Check</div>
+  <div class="iqz">
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q1</span>You want to identify all hosts on a network without completing TCP handshakes. Which Nmap flag do you use?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">-sU</button>
+        <button class="opt" onclick="ans(this,true)">-sS</button>
+        <button class="opt" onclick="ans(this,false)">-sV</button>
+        <button class="opt" onclick="ans(this,false)">-O</button>
+      </div>
+      <div class="feedback">✅ -sS = SYN/Stealth scan. Sends a SYN, gets SYN-ACK, then immediately sends RST instead of completing the handshake. Stealthy because it doesn't fully connect.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q2</span>A vulnerability is discovered by a researcher but the software vendor doesn't know about it yet. What is this called?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">CVE</button>
+        <button class="opt" onclick="ans(this,true)">Zero-Day</button>
+        <button class="opt" onclick="ans(this,false)">CVSS 10</button>
+        <button class="opt" onclick="ans(this,false)">Race Condition</button>
+      </div>
+      <div class="feedback">✅ Zero-day = vendor doesn't know = no patch = extremely dangerous. Once the vendor learns it exists, day zero begins.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q3</span>A pen tester is given full access to source code and network architecture diagrams before testing. This is a _____ test.</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Black Box</button>
+        <button class="opt" onclick="ans(this,false)">Gray Box</button>
+        <button class="opt" onclick="ans(this,true)">White Box</button>
+        <button class="opt" onclick="ans(this,false)">Red Team</button>
+      </div>
+      <div class="feedback">✅ White box = full knowledge. Black = zero knowledge. Gray = partial knowledge.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q4</span>Searching LinkedIn and company websites to gather info before an attack, WITHOUT touching the target's systems, is called?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,true)">Passive Reconnaissance</button>
+        <button class="opt" onclick="ans(this,false)">Active Reconnaissance</button>
+        <button class="opt" onclick="ans(this,false)">Enumeration</button>
+        <button class="opt" onclick="ans(this,false)">Pivoting</button>
+      </div>
+      <div class="feedback">✅ Passive recon = no interaction with target. It's like researching someone from public records. Active recon = you're actually probing their systems (leaves logs).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ LESSON 4 ═══════════ -->
+<div id="p4" class="panel">
+  <div class="lhdr">
+    <div class="lhdr-bar" style="background:var(--l4)"></div>
+    <div class="lhdr-meta">
+      <div class="lhdr-num c4">Lesson 04</div>
+      <div class="lhdr-title">Social Engineering &amp; Malware</div>
+      <div class="lhdr-desc">How attackers trick people and infect systems. Social engineering = hacking the human brain. Malware = hacking the machine.</div>
+    </div>
+    <div class="lhdr-icon">🎣</div>
+  </div>
+
+  <div class="sec">Social Engineering Principles (Why It Works)</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c4">👮 Authority</div><div class="cdef">Impersonating a boss, police officer, or IT admin. People obey authority figures without questioning. "I'm from corporate IT, I need your password."</div></div>
+    <div class="ccard"><div class="cterm c4">😤 Intimidation</div><div class="cdef">Threatening negative consequences. "Your account will be suspended unless you act NOW." Creates panic → bad decisions.</div></div>
+    <div class="ccard"><div class="cterm c4">👥 Social Proof</div><div class="cdef">"Everyone else is doing this." Fake reviews, "Most employees have already updated." Makes non-compliance seem unusual.</div></div>
+    <div class="ccard"><div class="cterm c4">⏰ Scarcity / Urgency</div><div class="cdef">"Limited time only!" "Must respond in 24 hours!" Time pressure bypasses rational thinking. Urgency = reduced scrutiny.</div></div>
+    <div class="ccard"><div class="cterm c4">🤝 Familiarity / Liking</div><div class="cdef">Build rapport first. Mention mutual friends, shared interests. "I know your colleague Sarah..." People say yes to people they like.</div></div>
+    <div class="ccard"><div class="cterm c4">🎁 Trust</div><div class="cdef">Establish credibility with partial insider knowledge before making a request. Knowing internal project names, org structure.</div></div>
+  </div>
+  <div class="mbox"><div class="mlabel">🧠 Mnemonic</div><strong>AIS-SFT = "Always Intimidate Students, Scaring Familiar Teachers"</strong> → Authority · Intimidation · Social Proof · Scarcity · Familiarity · Trust</div>
+
+  <div class="sec">Phishing Variants — Know All of Them!</div>
+  <table class="dtable">
+    <thead><tr><th>Type</th><th>Target</th><th>Medium</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Phishing</strong></td><td>Mass, anyone</td><td>Email</td><td>Fake bank email to millions: "Verify your account"</td></tr>
+      <tr><td><strong>Spear Phishing</strong></td><td>Specific individual (researched)</td><td>Email</td><td>Email mentioning your real boss, real project name</td></tr>
+      <tr><td><strong>Whaling</strong></td><td>Executives only (CEO, CFO)</td><td>Email</td><td>Fake wire transfer request to CFO from "CEO"</td></tr>
+      <tr><td><strong>Vishing</strong></td><td>Anyone</td><td>Voice call</td><td>Fake IRS agent calling about tax debt</td></tr>
+      <tr><td><strong>SMiShing</strong></td><td>Anyone with a phone</td><td>SMS text</td><td>"Your package is stuck, click to reschedule"</td></tr>
+      <tr><td><strong>Pharming</strong></td><td>Anyone visiting a website</td><td>DNS manipulation</td><td>You type mybank.com, DNS redirects you to fake site</td></tr>
+      <tr><td><strong>Business Email Compromise (BEC)</strong></td><td>Finance/HR employees</td><td>Email (spoofed)</td><td>Fake CEO email asking HR to change payroll bank account</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec">Other Social Engineering Attacks</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c4">🚪 Tailgating</div><div class="cdef">Sneaking through a secure door <strong>without permission</strong>, following close behind an authorized person. Employee doesn't realize they let someone in.</div></div>
+    <div class="ccard"><div class="cterm c4">🚪 Piggybacking</div><div class="cdef">Attacker follows through a secure door <strong>with the employee's knowledge</strong>. Employee holds the door, thinking they're being polite. Also wrong!</div></div>
+    <div class="ccard"><div class="cterm c4">🗑️ Dumpster Diving</div><div class="cdef">Searching through trash for sensitive documents, old equipment, credentials. Solution: shredding policies, data destruction.</div></div>
+    <div class="ccard"><div class="cterm c4">👀 Shoulder Surfing</div><div class="cdef">Watching someone type their PIN or password. Can be done from far away with binoculars or CCTV footage. Solution: privacy screens.</div></div>
+    <div class="ccard"><div class="cterm c4">🎭 Pretexting</div><div class="cdef">Creating a completely fake scenario/identity. "I'm the new IT contractor, I need your credentials to set up your account." No real contractor asks for this!</div></div>
+    <div class="ccard"><div class="cterm c4">🌊 Watering Hole</div><div class="cdef">Compromise a website the target frequently visits. Wait for them to come to you. Like poisoning a water source animals drink from.</div></div>
+    <div class="ccard"><div class="cterm c4">📝 Typosquatting</div><div class="cdef">Register a look-alike domain: "connptia.org" vs "comptia.org". Catches users who mistype URLs.</div></div>
+    <div class="ccard"><div class="cterm c4">📞 Impersonation</div><div class="cdef">Pretending to be someone you're not (IT support, delivery person, executive). Can be in-person or over the phone.</div></div>
+  </div>
+
+  <div class="sec">Malware Types — Know Every One!</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c2">🦠 Virus</div><div class="cdef"><strong>Attaches to a host file</strong>, spreads when that file runs. Needs user action to spread. Like a cold — needs a carrier.</div></div>
+    <div class="ccard"><div class="cterm c2">🐛 Worm</div><div class="cdef"><strong>Self-replicating, no host needed</strong>. Spreads over networks automatically. Like an airborne disease. WannaCry was a worm.</div></div>
+    <div class="ccard"><div class="cterm c2">🐴 Trojan</div><div class="cdef">Disguised as legitimate software. Hides malicious code inside something useful. "Gift" with a spy inside. Does NOT self-replicate.</div></div>
+    <div class="ccard"><div class="cterm c2">💰 Ransomware</div><div class="cdef">Encrypts your files, demands cryptocurrency payment for the key. "Pay us or lose everything." Don't pay — no guarantee you get key.</div></div>
+    <div class="ccard"><div class="cterm c2">🕳️ Rootkit</div><div class="cdef">Hides deep in OS (kernel level). Grants attackers admin access while evading detection. Very hard to remove — sometimes requires OS reinstall.</div></div>
+    <div class="ccard"><div class="cterm c2">🕵️ Spyware</div><div class="cdef">Silently collects data: keystrokes (keylogger), screenshots, browsing history, mic/camera access. Sends data to attacker.</div></div>
+    <div class="ccard"><div class="cterm c2">🤖 RAT</div><div class="cdef">Remote Access Trojan. Gives attacker full remote control of victim's machine. Can see screen, access files, use camera/mic.</div></div>
+    <div class="ccard"><div class="cterm c2">💻 Botnet</div><div class="cdef">Network of infected "zombie" computers controlled by one attacker (botmaster via C&amp;C server). Used for DDoS, spam, crypto mining.</div></div>
+    <div class="ccard"><div class="cterm c2">🔨 Logic Bomb</div><div class="cdef">Malware that activates when a specific condition is met. "If I'm not on the payroll next Friday, delete everything." Often planted by insiders.</div></div>
+    <div class="ccard"><div class="cterm c2">📢 Adware</div><div class="cdef">Displays unwanted advertisements. Often bundled with free software. Less malicious but annoying and can track browsing.</div></div>
+  </div>
+  <div class="abox"><div class="alabel">💡 Virus vs Worm vs Trojan</div><strong>Virus</strong> = common cold (needs a human carrier/host). <strong>Worm</strong> = airborne flu (spreads on its own through the air/network). <strong>Trojan</strong> = gift with a spy inside (you invite it in).</div>
+
+  <div class="sec">🧪 Quick Check</div>
+  <div class="iqz">
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q1</span>A finance employee receives an email appearing to be from the CEO asking for an urgent wire transfer. No money was authorized. This is called:</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Spear Phishing</button>
+        <button class="opt" onclick="ans(this,true)">Business Email Compromise (BEC) / Whaling</button>
+        <button class="opt" onclick="ans(this,false)">Vishing</button>
+        <button class="opt" onclick="ans(this,false)">Pharming</button>
+      </div>
+      <div class="feedback">✅ BEC/Whaling — targeting a specific employee with spoofed executive email for financial fraud. Whaling targets the executive; BEC targets employees impersonating the executive.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q2</span>Malware spreads through a network automatically, exploiting a vulnerability with no user action needed. What type is this?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Virus</button>
+        <button class="opt" onclick="ans(this,true)">Worm</button>
+        <button class="opt" onclick="ans(this,false)">Trojan</button>
+        <button class="opt" onclick="ans(this,false)">RAT</button>
+      </div>
+      <div class="feedback">✅ Worm = self-replicating, no host file, no user action. Virus needs a host file and user to run it. Trojan needs user to install it.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q3</span>An employee holds the door open for someone they think is a delivery person, letting them into a secure area. This is:</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Tailgating</button>
+        <button class="opt" onclick="ans(this,true)">Piggybacking</button>
+        <button class="opt" onclick="ans(this,false)">Pretexting</button>
+        <button class="opt" onclick="ans(this,false)">Impersonation</button>
+      </div>
+      <div class="feedback">✅ Piggybacking = employee knowingly (but naively) lets the attacker in. Tailgating = attacker sneaks through WITHOUT the employee's awareness.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q4</span>Malware that sits dormant and executes only when a specific date or condition is triggered is called a:</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Rootkit</button>
+        <button class="opt" onclick="ans(this,false)">Botnet</button>
+        <button class="opt" onclick="ans(this,true)">Logic Bomb</button>
+        <button class="opt" onclick="ans(this,false)">Spyware</button>
+      </div>
+      <div class="feedback">✅ Logic Bomb = waits for a trigger (date, event, condition) then detonates. Often planted by disgruntled insiders.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q5</span>Pharming differs from phishing because pharming:</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Uses phone calls instead of emails</button>
+        <button class="opt" onclick="ans(this,true)">Redirects users via DNS manipulation, no click required</button>
+        <button class="opt" onclick="ans(this,false)">Only targets executives</button>
+        <button class="opt" onclick="ans(this,false)">Uses text messages</button>
+      </div>
+      <div class="feedback">✅ Pharming poisons DNS so even if you type the correct URL, you're redirected to a fake site. No suspicious link to click. Much harder to detect.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ LESSON 5 ═══════════ -->
+<div id="p5" class="panel">
+  <div class="lhdr">
+    <div class="lhdr-bar" style="background:var(--l5)"></div>
+    <div class="lhdr-meta">
+      <div class="lhdr-num c5">Lesson 05</div>
+      <div class="lhdr-title">Summarizing Basic Cryptographic Concepts</div>
+      <div class="lhdr-desc">The math that keeps data secret. Hashing, symmetric &amp; asymmetric encryption, digital signatures, and when to use each.</div>
+    </div>
+    <div class="lhdr-icon">🔐</div>
+  </div>
+
+  <div class="sec">Core Vocabulary</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c5">Plaintext</div><div class="cdef">Original readable data before encryption. "Hello World." Also called "cleartext" when talking about unencrypted transmission.</div></div>
+    <div class="ccard"><div class="cterm c5">Ciphertext</div><div class="cdef">The scrambled, unreadable output AFTER encryption. Meaningless without the key to decrypt it.</div></div>
+    <div class="ccard"><div class="cterm c5">Cipher</div><div class="cdef">The algorithm used to encrypt/decrypt. The "recipe" for scrambling. E.g., AES, RSA, Caesar cipher.</div></div>
+    <div class="ccard"><div class="cterm c5">Key</div><div class="cdef">The secret value that controls HOW the cipher scrambles data. Longer key = more secure. Key management is critical.</div></div>
+    <div class="ccard"><div class="cterm c5">Key Stretching</div><div class="cdef">Making weak keys (like passwords) stronger by running them through algorithms like PBKDF2 or bcrypt thousands of times.</div></div>
+    <div class="ccard"><div class="cterm c5">Entropy</div><div class="cdef">Randomness/unpredictability in a key. High entropy = hard to guess. Poor entropy (predictable passwords) = weak encryption.</div></div>
+  </div>
+
+  <div class="sec">1. Hashing — One-Way Function</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c5">What Hashing Does</div><div class="cdef">Takes ANY input → produces a <strong>fixed-length "fingerprint"</strong>. One-way — you CANNOT reverse a hash to get the original. Same input ALWAYS = same output.</div></div>
+    <div class="ccard"><div class="cterm c5">SHA-256</div><div class="cdef">Secure Hash Algorithm. Produces 256-bit hash. <strong>The gold standard</strong>. Used in TLS, certificates, Bitcoin. Part of SHA-2 family.</div></div>
+    <div class="ccard"><div class="cterm c5">SHA-3</div><div class="cdef">Newest SHA standard. Different internal design from SHA-2. More resistant to certain attacks. Being adopted gradually.</div></div>
+    <div class="ccard"><div class="cterm c5">MD5</div><div class="cdef">128-bit hash. <strong>Broken — do NOT use for security</strong>. Vulnerable to collision attacks (two different inputs produce same hash). Still used for file integrity checksums.</div></div>
+    <div class="ccard"><div class="cterm c5">Salt</div><div class="cdef">Random value added to password BEFORE hashing. Makes identical passwords produce different hashes. Defeats rainbow table attacks. Stored alongside the hash.</div></div>
+    <div class="ccard"><div class="cterm c5">HMAC</div><div class="cdef">Hash-based Message Authentication Code. Combines hash + secret key. Provides BOTH integrity AND authentication. Used in TLS, APIs.</div></div>
+  </div>
+  <div class="abox"><div class="alabel">💡 Analogy</div>Hashing = grinding coffee beans into powder. You can't turn the powder back into beans. Same beans always make same powder (consistency), but many different beans make different powders (collision resistance).</div>
+
+  <div class="sec">2. Symmetric Encryption — One Shared Key</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c5">How It Works</div><div class="cdef">The <strong>SAME key</strong> encrypts and decrypts. Fast. Good for bulk data. Problem: how do you securely share the key with someone who doesn't have it yet?</div></div>
+    <div class="ccard"><div class="cterm c5">AES</div><div class="cdef">Advanced Encryption Standard. <strong>The standard symmetric cipher.</strong> Block cipher. AES-128, AES-192, AES-256. AES-256 is used by the US government for TOP SECRET data.</div></div>
+    <div class="ccard"><div class="cterm c5">3DES</div><div class="cdef">Triple DES. Applies DES three times. Legacy — being phased out. Weaker and slower than AES. Still seen in older payment systems.</div></div>
+    <div class="ccard"><div class="cterm c5">Block vs Stream Cipher</div><div class="cdef"><strong>Block</strong>: encrypts fixed chunks (AES uses 128-bit blocks). <strong>Stream</strong>: encrypts one bit/byte at a time, great for real-time streaming (RC4 was common — now deprecated).</div></div>
+  </div>
+
+  <div class="sec">3. Asymmetric Encryption — Key Pairs</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c5">How It Works</div><div class="cdef">Two mathematically linked keys: <strong>Public Key</strong> (share freely) and <strong>Private Key</strong> (keep secret). What one encrypts, only the other decrypts.</div></div>
+    <div class="ccard"><div class="cterm c5">RSA</div><div class="cdef">Most common asymmetric algorithm. Security based on difficulty of factoring large prime numbers. RSA-2048 minimum today. Slow.</div></div>
+    <div class="ccard"><div class="cterm c5">ECC</div><div class="cdef">Elliptic Curve Cryptography. <strong>Smaller keys, same security.</strong> ECC-256 ≈ RSA-3072. Great for mobile devices. Used in modern TLS.</div></div>
+    <div class="ccard"><div class="cterm c5">Diffie-Hellman (DH)</div><div class="cdef">Key EXCHANGE algorithm — allows two parties to establish a shared secret key over an insecure channel WITHOUT ever transmitting the key itself.</div></div>
+  </div>
+  <div class="abox"><div class="alabel">💡 Padlock Analogy</div>Bob distributes unlocked padlocks (public key) to everyone. Alice puts her message in a box, snaps Bob's padlock shut (encrypt with public key), mails it. Only Bob's key (private key) can open it. Nobody intercepting the box can open it.</div>
+
+  <div class="sec">Digital Signatures — Combining Hashing + Asymmetric</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c5">How to Sign</div><div class="cdef">1. Hash the message. 2. Encrypt the hash with your <strong>PRIVATE key</strong>. 3. Attach this "signature" to the message. Send both.</div></div>
+    <div class="ccard"><div class="cterm c5">How to Verify</div><div class="cdef">Receiver decrypts signature using sender's <strong>PUBLIC key</strong> → gets hash. Receiver also hashes the message independently. If hashes match = valid signature.</div></div>
+    <div class="ccard"><div class="cterm c5">What It Proves</div><div class="cdef"><strong>Integrity</strong> (message not changed) + <strong>Authentication</strong> (came from claimed sender) + <strong>Non-Repudiation</strong> (sender can't deny it). Three for one!</div></div>
+    <div class="ccard"><div class="cterm c5">Common Use</div><div class="cdef">Software updates (code signing), emails (S/MIME), documents (PDF signing), TLS certificates. Proves the software actually came from the vendor.</div></div>
+  </div>
+
+  <div class="sec">Comparison Table</div>
+  <table class="dtable">
+    <thead><tr><th>Feature</th><th>Hashing</th><th>Symmetric</th><th>Asymmetric</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Keys Used</strong></td><td>None</td><td>1 shared secret key</td><td>2 keys (public + private)</td></tr>
+      <tr><td><strong>Reversible?</strong></td><td>❌ No (one-way)</td><td>✅ Yes (with key)</td><td>✅ Yes (with private key)</td></tr>
+      <tr><td><strong>Speed</strong></td><td>⚡ Very fast</td><td>🟢 Fast</td><td>🔴 Slow</td></tr>
+      <tr><td><strong>Main Purpose</strong></td><td>Integrity verification</td><td>Bulk data encryption</td><td>Key exchange, auth, signatures</td></tr>
+      <tr><td><strong>Key Algorithms</strong></td><td>SHA-256, SHA-3, MD5</td><td>AES-256, 3DES</td><td>RSA, ECC, DH</td></tr>
+      <tr><td><strong>Key Challenge</strong></td><td>Collision attacks</td><td>Key distribution</td><td>Speed (computationally expensive)</td></tr>
+    </tbody>
+  </table>
+  <div class="mbox"><div class="mlabel">🧠 Real World — How HTTPS Uses All Three</div>1. <strong>Asymmetric</strong> (RSA/ECC) used to securely exchange a symmetric key during the handshake. 2. <strong>Symmetric</strong> (AES) used to encrypt actual data (fast). 3. <strong>Hashing</strong> (SHA-256) used to verify data integrity throughout. Each type does what it's best at!</div>
+
+  <div class="sec">🧪 Quick Check</div>
+  <div class="iqz">
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q1</span>You hash "Password123" and get a specific hash value. You add a salt, hash again, and get a different value. What does salting protect against?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Brute force attacks</button>
+        <button class="opt" onclick="ans(this,true)">Rainbow table attacks (pre-computed hash lookups)</button>
+        <button class="opt" onclick="ans(this,false)">SQL injection</button>
+        <button class="opt" onclick="ans(this,false)">Dictionary attacks</button>
+      </div>
+      <div class="feedback">✅ Rainbow tables have pre-computed hashes for common passwords. A salt makes each hash unique — the rainbow table no longer matches, making it useless.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q2</span>To send someone a confidential message using asymmetric encryption, you encrypt with their:</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,true)">Public key</button>
+        <button class="opt" onclick="ans(this,false)">Private key</button>
+        <button class="opt" onclick="ans(this,false)">Shared symmetric key</button>
+        <button class="opt" onclick="ans(this,false)">Your own private key</button>
+      </div>
+      <div class="feedback">✅ Encrypt with RECIPIENT'S public key → only they can decrypt with their private key. Remember: to sign a document, you use YOUR OWN private key (opposite use case).</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q3</span>ECC-256 provides equivalent security to approximately which RSA key size?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">RSA-256</button>
+        <button class="opt" onclick="ans(this,false)">RSA-1024</button>
+        <button class="opt" onclick="ans(this,true)">RSA-3072</button>
+        <button class="opt" onclick="ans(this,false)">RSA-512</button>
+      </div>
+      <div class="feedback">✅ ECC is much more efficient. ECC-256 ≈ RSA-3072. That's why ECC is preferred on mobile and embedded devices — smaller key, same protection, less computation.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q4</span>A digital signature proves which THREE properties simultaneously?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Confidentiality, Integrity, Availability</button>
+        <button class="opt" onclick="ans(this,true)">Integrity, Authentication, Non-Repudiation</button>
+        <button class="opt" onclick="ans(this,false)">Confidentiality, Authentication, Availability</button>
+        <button class="opt" onclick="ans(this,false)">Hashing, Encryption, Salting</button>
+      </div>
+      <div class="feedback">✅ Digital signatures prove: Integrity (data not changed), Authentication (came from claimed sender), Non-Repudiation (sender can't deny it). Note: does NOT provide confidentiality!</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ LESSON 6 ═══════════ -->
+<div id="p6" class="panel">
+  <div class="lhdr">
+    <div class="lhdr-bar" style="background:var(--l6)"></div>
+    <div class="lhdr-meta">
+      <div class="lhdr-num c6">Lesson 06</div>
+      <div class="lhdr-title">Implementing Public Key Infrastructure</div>
+      <div class="lhdr-desc">PKI is the system that issues, manages, and verifies digital certificates — the "ID cards" of the internet. It makes HTTPS and secure email possible.</div>
+    </div>
+    <div class="lhdr-icon">🏛️</div>
+  </div>
+
+  <div class="sec">PKI Core Components</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c6">📜 Digital Certificate</div><div class="cdef">Electronic document binding a <strong>public key to an identity</strong>. Contains: subject name, public key, issuer (CA), validity dates, serial number, digital signature. Like a passport for encryption.</div></div>
+    <div class="ccard"><div class="cterm c6">🏛️ CA (Certificate Authority)</div><div class="cdef">Trusted third party that <strong>issues and vouches</strong> for digital certificates. Verifies your identity before signing your certificate. The government that issues passports.</div></div>
+    <div class="ccard"><div class="cterm c6">👑 Root CA</div><div class="cdef">Top-level CA. <strong>Self-signed certificate</strong>. Pre-installed in browsers and OS. Kept OFFLINE for security. The ultimate trust anchor. If Root CA is compromised → catastrophic.</div></div>
+    <div class="ccard"><div class="cterm c6">🏢 Intermediate CA</div><div class="cdef">Sits between Root CA and end-entity certs. <strong>Does the day-to-day work</strong>. If compromised, only its certs are affected — Root CA stays safe. Also called Subordinate CA.</div></div>
+    <div class="ccard"><div class="cterm c6">📝 CSR</div><div class="cdef">Certificate Signing Request. You generate this and send to the CA to REQUEST a certificate. Contains: your public key, identity info. The CA signs it and returns a certificate.</div></div>
+    <div class="ccard"><div class="cterm c6">📋 X.509</div><div class="cdef">The standard format for digital certificates. Defines what fields a certificate must contain. What you see when you click the padlock in a browser.</div></div>
+    <div class="ccard"><div class="cterm c6">🔗 Chain of Trust</div><div class="cdef">Root CA signs Intermediate CA's cert → Intermediate CA signs your cert. Browser verifies each link in the chain all the way up to a trusted Root CA.</div></div>
+    <div class="ccard"><div class="cterm c6">🔑 Registration Authority (RA)</div><div class="cdef">Handles identity verification on behalf of the CA. The CA does the signing; the RA does the identity checking. Offloads CA's work.</div></div>
+  </div>
+  <div class="abox"><div class="alabel">💡 Passport Analogy</div><strong>Root CA</strong> = Federal Government (ultimate authority, rarely seen directly). <strong>Intermediate CA</strong> = Regional Passport Offices (do daily work). <strong>Digital Cert</strong> = Your Passport (proves identity). <strong>CSR</strong> = Passport Application. <strong>Chain of Trust</strong> = The authentication hierarchy from your passport back to the government.</div>
+
+  <div class="sec">Certificate Lifecycle</div>
+  <ul class="qlist">
+    <li><span class="pip c6" style="background:rgba(34,211,238,0.15)">1</span><div><strong>Enroll</strong> <span>— Generate a key pair (public + private). Create a CSR with your public key and identity info. Submit CSR to the CA.</span></div></li>
+    <li><span class="pip c6" style="background:rgba(34,211,238,0.15)">2</span><div><strong>Issue</strong> <span>— CA verifies your identity. CA signs the certificate with its private key. Returns the signed certificate to you.</span></div></li>
+    <li><span class="pip c6" style="background:rgba(34,211,238,0.15)">3</span><div><strong>Use</strong> <span>— Install certificate. Use it for HTTPS, email signing, device authentication, VPN, etc.</span></div></li>
+    <li><span class="pip c6" style="background:rgba(34,211,238,0.15)">4</span><div><strong>Renew</strong> <span>— Before expiration date, renew the certificate (generate new CSR or re-sign existing). Expiration = cert becomes invalid.</span></div></li>
+    <li><span class="pip c6" style="background:rgba(34,211,238,0.15)">5</span><div><strong>Revoke</strong> <span>— If private key is compromised, cert stolen, or entity changes — revoke immediately. CA publishes to CRL or OCSP.</span></div></li>
+  </ul>
+
+  <div class="sec">Revocation Methods (How to Invalidate a Certificate)</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c6">📄 CRL</div><div class="cdef">Certificate Revocation List. A downloadable file from the CA listing all revoked certificates. <strong>Downside: can be outdated</strong> — only as current as the last download.</div></div>
+    <div class="ccard"><div class="cterm c6">🔴 OCSP</div><div class="cdef">Online Certificate Status Protocol. Query the CA in <strong>real-time</strong> about a specific certificate's status. Returns: Good, Revoked, or Unknown. More current than CRL.</div></div>
+    <div class="ccard"><div class="cterm c6">📎 OCSP Stapling</div><div class="cdef">Server fetches OCSP response from CA and "staples" it to the TLS handshake. Client gets revocation status without making a separate OCSP request. Faster &amp; more private.</div></div>
+  </div>
+  <div class="mbox"><div class="mlabel">🧠 CRL vs OCSP</div><strong>CRL</strong> = old method, like downloading a list of banned people (can be outdated). <strong>OCSP</strong> = modern, real-time check. "Is THIS specific person still allowed?" <strong>OCSP Stapling</strong> = server pre-fetches and serves the answer for you.</div>
+
+  <div class="sec">Certificate Types by Validation Level</div>
+  <table class="dtable">
+    <thead><tr><th>Type</th><th>What It Validates</th><th>Trust Level</th><th>Use Case</th></tr></thead>
+    <tbody>
+      <tr><td><strong>DV — Domain Validation</strong></td><td>You control the domain. Automated check.</td><td>🟡 Basic</td><td>Blogs, small sites. Fast, cheap, no identity verification.</td></tr>
+      <tr><td><strong>OV — Organization Validation</strong></td><td>Organization is real and verified by CA.</td><td>🟢 Medium</td><td>Business websites. More trust than DV.</td></tr>
+      <tr><td><strong>EV — Extended Validation</strong></td><td>Legal entity thoroughly vetted by CA.</td><td>🔵 Highest</td><td>Banks, e-commerce. Green bar / company name shown in older browsers.</td></tr>
+      <tr><td><strong>Wildcard</strong></td><td>Domain + ALL subdomains</td><td>Any</td><td>*.comptia.org covers learn.comptia.org, exam.comptia.org, etc.</td></tr>
+      <tr><td><strong>SAN (Subject Alt Name)</strong></td><td>Multiple specific domains on ONE cert</td><td>Any</td><td>comptia.org AND certmaster.comptia.org AND learn.comptia.org</td></tr>
+      <tr><td><strong>Self-Signed</strong></td><td>Signed by yourself (not a CA)</td><td>❌ None (public)</td><td>Internal testing, lab environments. Browsers show security warning.</td></tr>
+      <tr><td><strong>Code Signing</strong></td><td>Software/code came from verified publisher</td><td>Medium-High</td><td>Windows apps, drivers. "Verified publisher" popup.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec">🧪 Quick Check</div>
+  <div class="iqz">
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q1</span>You visit a website and your browser shows "Certificate Not Trusted." The most likely cause is:</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">The certificate is EV type</button>
+        <button class="opt" onclick="ans(this,true)">The certificate is self-signed or from an untrusted CA</button>
+        <button class="opt" onclick="ans(this,false)">The certificate uses SHA-256</button>
+        <button class="opt" onclick="ans(this,false)">The website is using OCSP</button>
+      </div>
+      <div class="feedback">✅ Self-signed certificates aren't in the browser's trusted root store, so they show warnings. Also happens if the certificate chain doesn't trace back to a trusted root CA.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q2</span>A company needs ONE certificate to cover all subdomains (mail.co.com, vpn.co.com, store.co.com). What type should they get?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">SAN Certificate</button>
+        <button class="opt" onclick="ans(this,true)">Wildcard Certificate</button>
+        <button class="opt" onclick="ans(this,false)">EV Certificate</button>
+        <button class="opt" onclick="ans(this,false)">Self-Signed Certificate</button>
+      </div>
+      <div class="feedback">✅ Wildcard (*.co.com) covers ALL subdomains. SAN covers specific listed domains. Wildcard = unlimited subdomains; SAN = specific domains you list.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q3</span>Why is the Root CA typically kept offline?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">To save electricity</button>
+        <button class="opt" onclick="ans(this,false)">Because it's too slow to be online</button>
+        <button class="opt" onclick="ans(this,true)">To protect it from compromise — if Root CA is compromised, all certificates it issued become untrusted</button>
+        <button class="opt" onclick="ans(this,false)">Online CAs can't issue certificates</button>
+      </div>
+      <div class="feedback">✅ Root CA offline = air-gapped security. If a Root CA's private key is stolen, EVERY certificate in that chain becomes invalid. Offline = hardest to compromise.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q4</span>What is OCSP Stapling and why is it better than standard OCSP?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">It's a newer version of CRL</button>
+        <button class="opt" onclick="ans(this,true)">The server pre-fetches and serves OCSP status, so clients don't need to query the CA separately</button>
+        <button class="opt" onclick="ans(this,false)">It staples the certificate to the CSR</button>
+        <button class="opt" onclick="ans(this,false)">It combines CRL and OCSP into one file</button>
+      </div>
+      <div class="feedback">✅ OCSP Stapling = server does the OCSP lookup and includes ("staples") the signed response in the TLS handshake. Client gets revocation info without making a separate request = faster + more private.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ LESSON 7 ═══════════ -->
+<div id="p7" class="panel">
+  <div class="lhdr">
+    <div class="lhdr-bar" style="background:var(--l7)"></div>
+    <div class="lhdr-meta">
+      <div class="lhdr-num c7">Lesson 07</div>
+      <div class="lhdr-title">Implementing Authentication Controls</div>
+      <div class="lhdr-desc">Proving "you are who you say you are." Passwords, biometrics, smart cards, Kerberos, and how attackers try to crack them all.</div>
+    </div>
+    <div class="lhdr-icon">🗝️</div>
+  </div>
+
+  <div class="sec">IAM — Identity &amp; Access Management (The 4 A's)</div>
+  <ul class="qlist">
+    <li><span class="pip c7" style="background:rgba(244,114,182,0.15)">ID</span><div><strong>Identification</strong> <span>— "Who are you?" Claiming an identity. Providing a username, ID number. No verification yet.</span></div></li>
+    <li><span class="pip c7" style="background:rgba(244,114,182,0.15)">AU</span><div><strong>Authentication</strong> <span>— "Prove it." Verifying the claimed identity with credentials (password, fingerprint, card).</span></div></li>
+    <li><span class="pip c7" style="background:rgba(244,114,182,0.15)">AZ</span><div><strong>Authorization</strong> <span>— "What can you do?" Granting or denying access to resources based on permissions/roles.</span></div></li>
+    <li><span class="pip c7" style="background:rgba(244,114,182,0.15)">AC</span><div><strong>Accounting / Auditing</strong> <span>— "What did you do?" Logging activity for compliance, forensics, anomaly detection.</span></div></li>
+  </ul>
+  <div class="mbox"><div class="mlabel">🧠 Mnemonic</div><strong>"I Authenticate Authorized Actions"</strong> → Identification · Authentication · Authorization · Accounting</div>
+
+  <div class="sec">Authentication Factors — The 6 Types</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c7">🧠 Something You Know</div><div class="cdef">Password, PIN, passphrase, security questions, CAPTCHA patterns. <strong>Easiest to steal or guess</strong>. Subject to phishing, shoulder surfing, brute force.</div></div>
+    <div class="ccard"><div class="cterm c7">💳 Something You Have</div><div class="cdef">Smart card, hardware token (RSA SecurID), TOTP app (Google Authenticator), physical key, PIV card. Can be lost or stolen.</div></div>
+    <div class="ccard"><div class="cterm c7">👆 Something You Are</div><div class="cdef">Biometrics: fingerprint, retina scan, iris, facial recognition, voice, palm vein. <strong>Can't be changed if compromised</strong>. Has FAR and FRR error rates.</div></div>
+    <div class="ccard"><div class="cterm c7">📍 Somewhere You Are</div><div class="cdef">Location-based: GPS coordinates, IP address geolocation, physical port, facility access. Used as additional verification factor.</div></div>
+    <div class="ccard"><div class="cterm c7">⌨️ Something You Do</div><div class="cdef">Behavioral biometrics: typing rhythm/cadence (keystroke dynamics), gait analysis, how you hold your phone. Enables continuous authentication.</div></div>
+    <div class="ccard"><div class="cterm c7">👫 Someone You Know</div><div class="cdef">Web of Trust. Existing trusted users vouch for new ones. Used in PGP/GPG key signing parties. Decentralized trust model.</div></div>
+  </div>
+  <div class="abox"><div class="alabel">💡 MFA vs 2FA</div><strong>MFA</strong> = Multiple Factor Authentication = 2+ DIFFERENT factor TYPES. Password + PIN = NOT MFA (both "know"). Password + Fingerprint = MFA (know + are). Password + Phone OTP = MFA (know + have).</div>
+
+  <div class="sec">Biometric Error Rates</div>
+  <table class="dtable">
+    <thead><tr><th>Term</th><th>What It Means</th><th>Security Implication</th></tr></thead>
+    <tbody>
+      <tr><td><strong>FAR (False Acceptance Rate)</strong></td><td>System accepts an unauthorized user as authorized</td><td>Security risk — wrong person gets in</td></tr>
+      <tr><td><strong>FRR (False Rejection Rate)</strong></td><td>System rejects an authorized user</td><td>Usability issue — real person can't get in</td></tr>
+      <tr><td><strong>CER (Crossover Error Rate)</strong></td><td>Point where FAR = FRR. Lower CER = better biometric system.</td><td>Used to compare biometric system quality</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec">Authentication Protocols</div>
+  <table class="dtable">
+    <thead><tr><th>Protocol</th><th>How It Works</th><th>Security</th></tr></thead>
+    <tbody>
+      <tr><td><strong>PAP</strong></td><td>Sends password in CLEARTEXT. Horrible. Never use.</td><td>🔴 Avoid</td></tr>
+      <tr><td><strong>CHAP</strong></td><td>3-way challenge-response. Never sends actual password. Server sends challenge → client responds with hash.</td><td>🟡 Medium</td></tr>
+      <tr><td><strong>MS-CHAPv2</strong></td><td>Microsoft's CHAP. Uses NTLM hashes. Vulnerable to offline attacks. Need to use inside encrypted tunnel.</td><td>🟡 Medium</td></tr>
+      <tr><td><strong>Kerberos</strong></td><td>Ticket-based SSO. Uses KDC (AS + TGS). Gold standard for enterprise auth. Used in Active Directory.</td><td>🟢 High</td></tr>
+      <tr><td><strong>LDAP / LDAPS</strong></td><td>Directory service queries. LDAP = port 389 (unencrypted). LDAPS = port 636 (TLS encrypted). Used for user lookups in AD.</td><td>🟡 / 🟢</td></tr>
+      <tr><td><strong>RADIUS</strong></td><td>Centralized authentication for remote access (VPN, Wi-Fi). Client sends credentials to RADIUS server for validation.</td><td>🟢 High</td></tr>
+      <tr><td><strong>TACACS+</strong></td><td>Cisco's alternative to RADIUS. Separates authentication/authorization/accounting. Encrypts ENTIRE packet (RADIUS only encrypts password).</td><td>🟢 High</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sec">Kerberos — Step by Step</div>
+  <ul class="qlist">
+    <li><span class="pip c7" style="background:rgba(244,114,182,0.15)">1</span><div><strong>AS-REQ</strong> <span>— User sends Authentication Service Request to the KDC. Includes username. Password hash used as a key.</span></div></li>
+    <li><span class="pip c7" style="background:rgba(244,114,182,0.15)">2</span><div><strong>AS-REP → TGT</strong> <span>— KDC verifies credentials. Issues Ticket Granting Ticket (TGT), encrypted with KDC's secret key. Valid 10 hours.</span></div></li>
+    <li><span class="pip c7" style="background:rgba(244,114,182,0.15)">3</span><div><strong>TGS-REQ</strong> <span>— User presents TGT to Ticket Granting Service (TGS) to request access to a specific service/resource.</span></div></li>
+    <li><span class="pip c7" style="background:rgba(244,114,182,0.15)">4</span><div><strong>TGS-REP → Service Ticket</strong> <span>— TGS issues a Service Ticket encrypted with the application server's secret key.</span></div></li>
+    <li><span class="pip c7" style="background:rgba(244,114,182,0.15)">5</span><div><strong>Access Granted</strong> <span>— User presents Service Ticket to the app server. Server decrypts, verifies, grants access. Password never sent over network!</span></div></li>
+  </ul>
+  <div class="mbox"><div class="mlabel">🧠 Kerberos Key Facts</div>
+    • Port: <strong>88</strong> (TCP/UDP)<br>
+    • Requires time sync: clocks within <strong>5 minutes</strong> (replay attack prevention)<br>
+    • TGT default max age: <strong>10 hours</strong><br>
+    • KDC = single point of failure (use multiple Domain Controllers in AD)<br>
+    • Provides <strong>mutual authentication</strong> — both client AND server verified<br>
+    • Password hash = your "key" to unlock the TGT
+  </div>
+
+  <div class="sec">Password Attacks — Know All of These!</div>
+  <div class="cgrid">
+    <div class="ccard"><div class="cterm c7">💪 Brute Force</div><div class="cdef">Try every possible combination. Guaranteed to work given enough time. Defeated by: account lockout, long/complex passwords.</div></div>
+    <div class="ccard"><div class="cterm c7">📖 Dictionary Attack</div><div class="cdef">Try words from a wordlist (rockyou.txt, etc.). Much faster than brute force. Defeated by: not using real words, passphrases with numbers/symbols.</div></div>
+    <div class="ccard"><div class="cterm c7">🌈 Rainbow Table</div><div class="cdef">Pre-computed database of password→hash pairs. Instant lookup if the hash is in the table. Defeated by: <strong>salting</strong> (salt makes every hash unique).</div></div>
+    <div class="ccard"><div class="cterm c7">🔄 Credential Stuffing</div><div class="cdef">Use stolen username/password pairs from one breach on other sites. Works because people reuse passwords. Defeated by: unique passwords, MFA.</div></div>
+    <div class="ccard"><div class="cterm c7">🌊 Password Spraying</div><div class="cdef">Try ONE common password against MANY accounts. Avoids lockout (only 1 try per account). "Password1" tried against 10,000 users. Defeated by: MFA, complex password policies.</div></div>
+    <div class="ccard"><div class="cterm c7">🧂 Pass the Hash</div><div class="cdef">Steal the password hash and use it directly to authenticate WITHOUT cracking it. Only works on systems using NTLM authentication. Defeated by: Kerberos, MFA.</div></div>
+  </div>
+
+  <div class="sec">🧪 Quick Check</div>
+  <div class="iqz">
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q1</span>A user logs in with their username (identification) and then provides a fingerprint and a smart card. How many authentication FACTORS are being used?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">One factor (biometric)</button>
+        <button class="opt" onclick="ans(this,false)">Three factors (ID + fingerprint + card)</button>
+        <button class="opt" onclick="ans(this,true)">Two factors (something you are + something you have)</button>
+        <button class="opt" onclick="ans(this,false)">No factors — identification isn't authentication</button>
+      </div>
+      <div class="feedback">✅ Identification (username) isn't a factor — it's just claiming an identity. The fingerprint (something you ARE) and smart card (something you HAVE) = 2 factors = 2FA/MFA.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q2</span>An attacker attempts "Summer2024!" against 50,000 user accounts across your organization. What attack is this?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Credential Stuffing</button>
+        <button class="opt" onclick="ans(this,false)">Dictionary Attack</button>
+        <button class="opt" onclick="ans(this,true)">Password Spraying</button>
+        <button class="opt" onclick="ans(this,false)">Brute Force</button>
+      </div>
+      <div class="feedback">✅ Password Spraying = one password, many accounts. Avoids lockout thresholds. Best defeated by MFA. Credential stuffing = many unique pairs. Dictionary = many passwords on one account.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q3</span>In Kerberos, what does the user present to the Ticket Granting Service (TGS) to get a service ticket?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">Their password</button>
+        <button class="opt" onclick="ans(this,true)">The Ticket Granting Ticket (TGT)</button>
+        <button class="opt" onclick="ans(this,false)">A digital certificate</button>
+        <button class="opt" onclick="ans(this,false)">An LDAP query</button>
+      </div>
+      <div class="feedback">✅ TGT → TGS → Service Ticket → Access. The TGT is your "master ticket" that proves you authenticated. You trade it for specific service tickets. Password is never re-sent!</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q4</span>A biometric system's CER (Crossover Error Rate) is 2%. Another system has a CER of 0.5%. Which is better?</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">The 2% system — higher number = more data</button>
+        <button class="opt" onclick="ans(this,true)">The 0.5% system — lower CER means fewer errors overall</button>
+        <button class="opt" onclick="ans(this,false)">They're equal</button>
+        <button class="opt" onclick="ans(this,false)">CER doesn't measure quality</button>
+      </div>
+      <div class="feedback">✅ Lower CER = better biometric. CER is the point where FAR (letting wrong people in) equals FRR (rejecting right people). Lower crossover = fewer mistakes overall.</div>
+    </div>
+    <div class="iqz-card">
+      <div class="iqz-q"><span class="qnum">Q5</span>TACACS+ is preferred over RADIUS for device administration because:</div>
+      <div class="opts">
+        <button class="opt" onclick="ans(this,false)">RADIUS is too old to use</button>
+        <button class="opt" onclick="ans(this,true)">TACACS+ encrypts the entire payload, not just the password</button>
+        <button class="opt" onclick="ans(this,false)">TACACS+ is faster than RADIUS</button>
+        <button class="opt" onclick="ans(this,false)">TACACS+ uses UDP instead of TCP</button>
+      </div>
+      <div class="feedback">✅ TACACS+ encrypts the ENTIRE packet. RADIUS only encrypts the password field. Also, TACACS+ separates auth/authz/accounting (AAA) completely. RADIUS is better for general network access auth (Wi-Fi).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ QUIZ PANEL ═══════════ -->
+<div id="pquiz" class="panel">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:28px;text-align:center;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--quiz)"></div>
+    <div style="font-size:36px;margin-bottom:12px">🧪</div>
+    <h2 style="font-family:'Fraunces',serif;font-size:26px;font-weight:700;color:var(--quiz);margin-bottom:8px">Full Test Mode</h2>
+    <p style="color:var(--muted);font-size:13px;max-width:500px;margin:0 auto">Each lesson section below has its own quiz with new questions covering the full lesson. Track your score per section. Click the section header to expand.</p>
+  </div>
+
+  <!-- L1 Quiz Block -->
+  <div class="lesson-quiz-block" id="qblock1">
+    <div class="lqb-header" onclick="toggleBlock(1)">
+      <span class="lqb-dot" style="background:var(--l1)"></span>
+      <span class="lqb-title">Lesson 1 — Security Roles &amp; Controls</span>
+      <span class="lqb-count" id="qcount1">10 questions</span>
+      <span class="lqb-score" id="qscore1"></span>
+      <span class="lqb-toggle">▼</span>
+    </div>
+    <div class="lqb-body" id="qbody1">
+      <div id="qqlist1"></div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="qpbar1" style="background:var(--l1)"></div></div>
+      <div class="quiz-summary" id="qsummary1">
+        <h4>Lesson 1 Complete!</h4>
+        <div class="big-score" id="qbig1" style="color:var(--l1)"></div>
+        <p id="qmsg1"></p>
+        <button class="retry-btn" onclick="resetBlock(1)">🔄 Retry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- L2 Quiz Block -->
+  <div class="lesson-quiz-block" id="qblock2">
+    <div class="lqb-header" onclick="toggleBlock(2)">
+      <span class="lqb-dot" style="background:var(--l2)"></span>
+      <span class="lqb-title">Lesson 2 — Threat Actors &amp; Intelligence</span>
+      <span class="lqb-count" id="qcount2">10 questions</span>
+      <span class="lqb-score" id="qscore2"></span>
+      <span class="lqb-toggle">▼</span>
+    </div>
+    <div class="lqb-body" id="qbody2">
+      <div id="qqlist2"></div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="qpbar2" style="background:var(--l2)"></div></div>
+      <div class="quiz-summary" id="qsummary2">
+        <h4>Lesson 2 Complete!</h4>
+        <div class="big-score" id="qbig2" style="color:var(--l2)"></div>
+        <p id="qmsg2"></p>
+        <button class="retry-btn" onclick="resetBlock(2)">🔄 Retry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- L3 Quiz Block -->
+  <div class="lesson-quiz-block" id="qblock3">
+    <div class="lqb-header" onclick="toggleBlock(3)">
+      <span class="lqb-dot" style="background:var(--l3)"></span>
+      <span class="lqb-title">Lesson 3 — Security Assessments</span>
+      <span class="lqb-count" id="qcount3">10 questions</span>
+      <span class="lqb-score" id="qscore3"></span>
+      <span class="lqb-toggle">▼</span>
+    </div>
+    <div class="lqb-body" id="qbody3">
+      <div id="qqlist3"></div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="qpbar3" style="background:var(--l3)"></div></div>
+      <div class="quiz-summary" id="qsummary3">
+        <h4>Lesson 3 Complete!</h4>
+        <div class="big-score" id="qbig3" style="color:var(--l3)"></div>
+        <p id="qmsg3"></p>
+        <button class="retry-btn" onclick="resetBlock(3)">🔄 Retry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- L4 Quiz Block -->
+  <div class="lesson-quiz-block" id="qblock4">
+    <div class="lqb-header" onclick="toggleBlock(4)">
+      <span class="lqb-dot" style="background:var(--l4)"></span>
+      <span class="lqb-title">Lesson 4 — Social Engineering &amp; Malware</span>
+      <span class="lqb-count" id="qcount4">10 questions</span>
+      <span class="lqb-score" id="qscore4"></span>
+      <span class="lqb-toggle">▼</span>
+    </div>
+    <div class="lqb-body" id="qbody4">
+      <div id="qqlist4"></div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="qpbar4" style="background:var(--l4)"></div></div>
+      <div class="quiz-summary" id="qsummary4">
+        <h4>Lesson 4 Complete!</h4>
+        <div class="big-score" id="qbig4" style="color:var(--l4)"></div>
+        <p id="qmsg4"></p>
+        <button class="retry-btn" onclick="resetBlock(4)">🔄 Retry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- L5 Quiz Block -->
+  <div class="lesson-quiz-block" id="qblock5">
+    <div class="lqb-header" onclick="toggleBlock(5)">
+      <span class="lqb-dot" style="background:var(--l5)"></span>
+      <span class="lqb-title">Lesson 5 — Cryptography</span>
+      <span class="lqb-count" id="qcount5">10 questions</span>
+      <span class="lqb-score" id="qscore5"></span>
+      <span class="lqb-toggle">▼</span>
+    </div>
+    <div class="lqb-body" id="qbody5">
+      <div id="qqlist5"></div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="qpbar5" style="background:var(--l5)"></div></div>
+      <div class="quiz-summary" id="qsummary5">
+        <h4>Lesson 5 Complete!</h4>
+        <div class="big-score" id="qbig5" style="color:var(--l5)"></div>
+        <p id="qmsg5"></p>
+        <button class="retry-btn" onclick="resetBlock(5)">🔄 Retry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- L6 Quiz Block -->
+  <div class="lesson-quiz-block" id="qblock6">
+    <div class="lqb-header" onclick="toggleBlock(6)">
+      <span class="lqb-dot" style="background:var(--l6)"></span>
+      <span class="lqb-title">Lesson 6 — PKI</span>
+      <span class="lqb-count" id="qcount6">10 questions</span>
+      <span class="lqb-score" id="qscore6"></span>
+      <span class="lqb-toggle">▼</span>
+    </div>
+    <div class="lqb-body" id="qbody6">
+      <div id="qqlist6"></div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="qpbar6" style="background:var(--l6)"></div></div>
+      <div class="quiz-summary" id="qsummary6">
+        <h4>Lesson 6 Complete!</h4>
+        <div class="big-score" id="qbig6" style="color:var(--l6)"></div>
+        <p id="qmsg6"></p>
+        <button class="retry-btn" onclick="resetBlock(6)">🔄 Retry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- L7 Quiz Block -->
+  <div class="lesson-quiz-block" id="qblock7">
+    <div class="lqb-header" onclick="toggleBlock(7)">
+      <span class="lqb-dot" style="background:var(--l7)"></span>
+      <span class="lqb-title">Lesson 7 — Authentication Controls</span>
+      <span class="lqb-count" id="qcount7">10 questions</span>
+      <span class="lqb-score" id="qscore7"></span>
+      <span class="lqb-toggle">▼</span>
+    </div>
+    <div class="lqb-body" id="qbody7">
+      <div id="qqlist7"></div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="qpbar7" style="background:var(--l7)"></div></div>
+      <div class="quiz-summary" id="qsummary7">
+        <h4>Lesson 7 Complete!</h4>
+        <div class="big-score" id="qbig7" style="color:var(--l7)"></div>
+        <p id="qmsg7"></p>
+        <button class="retry-btn" onclick="resetBlock(7)">🔄 Retry</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- .main -->
+
+<script>
+// ── Tab navigation
+function go(n, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('p' + n).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ── Inline quiz (per lesson)
+function ans(btn, isCorrect) {
+  const grp = btn.closest('.opts');
+  if (grp.querySelector('.correct,.wrong')) return;
+  const card = btn.closest('.iqz-card');
+  const fb = card.querySelector('.feedback');
+  grp.querySelectorAll('.opt').forEach(b => b.classList.add('disabled'));
+  if (isCorrect) {
+    btn.classList.add('correct');
+    fb.classList.add('show','fb-ok');
+  } else {
+    btn.classList.add('wrong');
+    // highlight correct
+    grp.querySelectorAll('.opt').forEach(b => {
+      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes('true')) b.classList.add('correct');
+    });
+    fb.classList.add('show','fb-no');
+    fb.textContent = '❌ Incorrect. ' + fb.textContent;
+  }
+}
+
+// ── Quiz data
+const QUIZZES = {
+  1: [
+    {q:"Which CIA property ensures only authorized people can VIEW data?", opts:["Integrity","Availability","Confidentiality","Non-Repudiation"], ans:2, exp:"Confidentiality = who can SEE it. Think: 'confidential document.'"},
+    {q:"A backup system that restores data after an attack is what type of control?", opts:["Preventive","Detective","Corrective","Deterrent"], ans:2, exp:"Corrective controls FIX damage after an attack. Backups restore lost data."},
+    {q:"The NIST function where you monitor systems continuously for threats is:", opts:["Identify","Protect","Detect","Respond"], ans:2, exp:"Detect = continuous monitoring. IDS, SIEM, log analysis — all Detective/Detect function."},
+    {q:"A security warning sign ('Unauthorized Access Prohibited') on a fence is what control type?", opts:["Physical","Preventive","Deterrent","Detective"], ans:2, exp:"Deterrent = discourages psychologically. The sign doesn't stop anyone physically."},
+    {q:"What does 'DAD' stand for in the context of security?", opts:["Data Access Defense","Disclosure, Alteration, Denial","Defense Against Disruption","Detect, Analyze, Defend"], ans:1, exp:"DAD = the opposite of CIA. Attackers aim for Disclosure (break confidentiality), Alteration (break integrity), Denial (break availability)."},
+    {q:"A DevSecOps approach means security is:", opts:["Added at the end of development","Handled only by the security team","Integrated into development from the start","Only applied to production systems"], ans:2, exp:"DevSecOps = 'shift left.' Security is built in from day one, not bolted on afterward."},
+    {q:"Which role is specifically responsible for handling active security incidents and breaches?", opts:["CISO","Data Owner","CIRT/CERT","SOC Analyst Tier 1"], ans:2, exp:"CIRT/CERT = Cyber Incident Response Team. They're called when a breach actually happens — the 'firefighters.'"},
+    {q:"A firewall rule that blocks all inbound traffic on port 23 (Telnet) is what type of control?", opts:["Detective","Compensating","Corrective","Preventive"], ans:3, exp:"Preventive = stops the attack before it happens. Blocking a port prevents exploitation before anyone connects."},
+    {q:"Non-repudiation is BEST achieved through:", opts:["Strong passwords","Digital signatures","Encryption","Multi-factor authentication"], ans:1, exp:"Digital signatures prove who sent a message AND that they can't deny it. That's non-repudiation by definition."},
+    {q:"Operational controls are primarily implemented by:", opts:["Hardware and software","People and processes","Governance and oversight","Physical barriers"], ans:1, exp:"Operational controls are human-driven: security guards, background checks, training programs, procedures."}
+  ],
+  2: [
+    {q:"A threat actor motivated by political ideology hacking a government website is called a:", opts:["Script Kiddie","State Actor","Hacktivist","Criminal Syndicate"], ans:2, exp:"Hacktivists are motivated by political or social causes. Anonymous is the classic example."},
+    {q:"IoC stands for:", opts:["Indicator of Compromise","Instance of Control","Index of Cyberthreats","Integrity or Confidentiality"], ans:0, exp:"Indicator of Compromise = evidence that a breach occurred. Unauthorized software, suspicious logins, unknown outbound connections."},
+    {q:"Which type of threat actor has the LEAST skill but often uses downloadable hacking tools?", opts:["APT","Hacktivist","Script Kiddie","Insider Threat"], ans:2, exp:"Script Kiddie = low skill, uses pre-made tools they don't really understand. Motivated by attention or fun."},
+    {q:"An APT attack is characterized by which of the following?", opts:["Quick smash-and-grab attack","Single-vector attack","Sophisticated and long-term ongoing attack","Automated botnet activity"], ans:2, exp:"APT = Advanced Persistent Threat. Advanced = highly skilled. Persistent = long-term (months/years). Usually nation-state."},
+    {q:"Gathering intelligence from job postings, LinkedIn, and public websites without directly contacting the target is called:", opts:["Active Reconnaissance","Social Engineering","OSINT","Spear Phishing"], ans:2, exp:"OSINT = Open-Source Intelligence. Public sources only. No direct contact. Completely passive and legal."},
+    {q:"A company's own sysadmin plants a backdoor because they're angry about being passed over for promotion. This is a:", opts:["APT","Hacktivist","Script Kiddie","Insider Threat"], ans:3, exp:"Insider Threat = someone with authorized internal access who misuses it. Most dangerous because they already have access."},
+    {q:"The SolarWinds attack, where malware was distributed through a legitimate software update, is an example of:", opts:["Watering Hole","Supply Chain Attack","Spear Phishing","Ransomware"], ans:1, exp:"Supply Chain = compromise a trusted vendor/software to reach the real targets indirectly. SolarWinds infected thousands of customers through one compromised update."},
+    {q:"STIX is to threat intelligence as _____ is to web data.", opts:["HTTP","HTML","CSS","TCP"], ans:1, exp:"STIX = the language/format for describing threat intelligence. Like HTML describes web content. TAXII = the protocol for delivering it, like HTTP."},
+    {q:"A gray hat hacker differs from a black hat because:", opts:["They never break into systems","They have government authorization","They don't exploit for personal gain but still lack permission","They only attack foreign systems"], ans:2, exp:"Gray hat = no permission (illegal) but doesn't profit from the exploit. May report vulnerabilities. Still legally problematic."},
+    {q:"Which dark web activity is MOST relevant to threat intelligence gathering?", opts:["Streaming videos","Selling stolen credential dumps and exploit kits","Anonymous blogging","Bypassing geographic restrictions"], ans:1, exp:"Dark web threat intelligence = monitoring for stolen credentials, leaked data, exploit kits for sale that could target your organization."}
+  ],
+  3: [
+    {q:"Which tool would you use to see all active TCP connections and which ports are listening on your machine?", opts:["ipconfig","ping","netstat","arp"], ans:2, exp:"netstat = network statistics. Shows active connections, listening ports, routing table. Perfect for spotting unauthorized connections."},
+    {q:"A CVSS score of 9.8 indicates:", opts:["A low severity issue","A medium severity issue","A high severity issue","A critical severity issue"], ans:3, exp:"CVSS 9–10 = Critical. Patch immediately. 7–8.9 = High. 4–6.9 = Medium. 0–3.9 = Low."},
+    {q:"Metasploit is primarily used for:", opts:["Network mapping","Packet capture","Launching exploits against known vulnerabilities","DNS reconnaissance"], ans:2, exp:"Metasploit = exploitation framework. It automates launching exploits against specific CVEs. Used by pen testers to PROVE a vulnerability is exploitable."},
+    {q:"Which Nmap flag detects the version of services running on open ports?", opts:["-sS","-sU","-sV","-O"], ans:2, exp:"-sV = service version detection. Tells you 'Apache 2.4.51' not just 'port 80 open.' Essential for knowing WHICH version has vulnerabilities."},
+    {q:"A TOCTOU vulnerability is a type of:", opts:["Buffer Overflow","Race Condition","SQL Injection","Zero-Day"], ans:1, exp:"TOCTOU = Time-of-Check/Time-of-Use. A race condition where the attacker changes data between when it's checked and when it's used."},
+    {q:"During a pen test, after compromising a DMZ web server, the tester uses it to attack internal database servers. This is called:", opts:["Persistence","Escalation","Pivoting","Enumeration"], ans:2, exp:"Pivoting = using a compromised system as a launchpad to attack further into the network (behind the firewall/DMZ)."},
+    {q:"Wireshark captures show passwords in cleartext. What MUST be true about the protocol being used?", opts:["It uses AES encryption","It's a secure protocol","It transmits without encryption","It uses digital certificates"], ans:2, exp:"If Wireshark shows plaintext passwords, the protocol has NO encryption. Examples: HTTP (not HTTPS), FTP (not SFTP), Telnet (not SSH)."},
+    {q:"Which type of pen test best simulates a real outside attacker with NO prior knowledge?", opts:["White Box","Gray Box","Black Box","Red Team Assessment"], ans:2, exp:"Black Box = zero knowledge. Just like a real attacker who doesn't have any insider info. Most realistic external attack simulation."},
+    {q:"A CVE identifier looks like CVE-2021-44228. What does this format represent?", opts:["Category-Severity-ID","Year-Number assigned by Mitre","Vendor-Product-Version","CVSS Score-Year-Patch Level"], ans:1, exp:"CVE = CVE-(Year the vulnerability was published)-(Unique number assigned by Mitre). CVE-2021-44228 = Log4Shell, discovered 2021."},
+    {q:"Passive reconnaissance of a target organization would include:", opts:["Running Nmap against their servers","Sending phishing emails","Searching Google for their employee names and job postings","Connecting to their open Wi-Fi"], ans:2, exp:"Passive = no interaction with the target. Google searches, LinkedIn lookups, job postings analysis = all passive. Nmap = active (touches their systems)."}
+  ],
+  4: [
+    {q:"An attacker calls an employee pretending to be from the help desk and asks for their password to 'fix an issue.' This is:", opts:["Phishing","Shoulder Surfing","Vishing","Pretexting"], ans:3, exp:"Pretexting = creating a fabricated scenario to manipulate. The fake IT story is the pretext. Also vishing (voice), but pretexting is the more specific social engineering technique."},
+    {q:"Registering 'g00gle.com' to catch users who mistype URLs is called:", opts:["Pharming","Watering Hole","Typosquatting","Domain Hijacking"], ans:2, exp:"Typosquatting = registering domains with common misspellings or character substitutions to catch typo-prone users."},
+    {q:"A virus MUST have which characteristic that worms do NOT require?", opts:["Network connectivity","A host file to attach to and user execution","Encrypted payload","A command-and-control server"], ans:1, exp:"Virus = requires a host file + user must run the file. Worm = self-propagating, no host file, no user action needed."},
+    {q:"Which malware type hides at the OS kernel level and makes itself invisible to security tools?", opts:["Spyware","Botnet","Rootkit","RAT"], ans:2, exp:"Rootkit = hides deep in the OS (kernel/boot level). Makes itself and other malware invisible. Very hard to detect and remove."},
+    {q:"The social engineering principle being used when an attacker says 'Everyone in your department has already completed this update' is:", opts:["Authority","Urgency","Social Proof","Familiarity"], ans:2, exp:"Social Proof = 'everyone else is doing it.' Creates pressure to conform. If 'everyone' has done it, refusing seems abnormal."},
+    {q:"Malware that captures your keystrokes and sends them to an attacker is called:", opts:["Ransomware","Logic Bomb","Keylogger / Spyware","Worm"], ans:2, exp:"Keylogger is a type of Spyware. It records every keystroke — passwords, credit cards, messages — and exfiltrates them."},
+    {q:"A watering hole attack works by:", opts:["Sending targeted phishing emails","Compromising websites frequently visited by the target","Poisoning DNS records","Following employees through secure doors"], ans:1, exp:"Watering Hole = compromise a site the targets are known to visit. The attacker waits for targets to come to them. Like poisoning a watering hole that animals drink from."},
+    {q:"An organization can defend against BEC (Business Email Compromise) MOST effectively by:", opts:["Using antivirus software","Implementing DMARC/SPF/DKIM and verifying wire transfers out-of-band","Enabling full disk encryption","Installing a web application firewall"], ans:1, exp:"BEC defense: email authentication (DMARC/SPF/DKIM) stops spoofing. Out-of-band verification (call the CEO directly) before wire transfers. No antivirus stops a well-crafted BEC."},
+    {q:"Which type of malware gives an attacker FULL remote control over the victim's computer including camera and microphone?", opts:["Spyware","Botnet","Trojan","RAT (Remote Access Trojan)"], ans:3, exp:"RAT = Remote Access Trojan. Full remote control: screen view, keyboard, files, camera, microphone. The attacker can do anything you can do on your own machine."},
+    {q:"SMiShing is phishing conducted via:", opts:["Social media","Email spoofing","SMS text messages","VoIP calls"], ans:2, exp:"SMiShing = SMS + Phishing. Text messages. 'Your package is delayed, click here.' Vishing = voice calls."}
+  ],
+  5: [
+    {q:"Which algorithm should you use to store passwords securely (with salting) in a database?", opts:["MD5","SHA-1","AES-256","bcrypt / PBKDF2 / SHA-256 with salt"], ans:3, exp:"For passwords: use slow hashing algorithms designed for passwords (bcrypt, Argon2, PBKDF2). Always salt. MD5 and SHA-1 are broken for this purpose."},
+    {q:"AES-256 is classified as what type of cipher?", opts:["Asymmetric Stream Cipher","Symmetric Block Cipher","Hash Function","Asymmetric Block Cipher"], ans:1, exp:"AES = Symmetric (same key encrypt/decrypt) + Block cipher (operates on 128-bit blocks). It's the gold standard symmetric cipher."},
+    {q:"Diffie-Hellman is used for:", opts:["Encrypting email messages","Generating hash values","Key exchange over an insecure channel","Digital signatures"], ans:2, exp:"DH = key exchange protocol. Allows two parties to agree on a shared secret key over an insecure channel WITHOUT ever transmitting the key itself."},
+    {q:"If two different inputs produce the same hash output, this is called a:", opts:["Collision","Brute Force","Preimage Attack","Salt failure"], ans:0, exp:"Collision = two different inputs → same hash output. This is why MD5 is broken — collisions can be deliberately created. SHA-256 is collision-resistant."},
+    {q:"HMAC provides which combination of properties?", opts:["Confidentiality and Availability","Integrity and Authentication","Non-repudiation and Encryption","Key exchange and Integrity"], ans:1, exp:"HMAC = Hash + secret key = Integrity (data not changed) + Authentication (came from someone who knows the key). Used in APIs and TLS."},
+    {q:"RSA's security is based on the mathematical difficulty of:", opts:["Computing discrete logarithms","Factoring large prime numbers","Solving elliptic curve equations","Reversing hash functions"], ans:1, exp:"RSA security = based on the fact that it's computationally infeasible to factor the product of two very large primes back into those primes."},
+    {q:"In HTTPS, which type of encryption is used to encrypt the ACTUAL web data (after the handshake)?", opts:["Asymmetric — RSA","Hashing — SHA-256","Symmetric — AES","Elliptic Curve — ECC"], ans:2, exp:"Asymmetric (slow) negotiates the key. Then Symmetric (AES, fast) encrypts all actual data. Best of both worlds."},
+    {q:"A digital signature is created by signing with your:", opts:["Public key","Recipient's public key","Your private key","Shared symmetric key"], ans:2, exp:"Sign with your PRIVATE key. Verify with your PUBLIC key. (Opposite of encryption for confidentiality where you encrypt with recipient's PUBLIC key.)"},
+    {q:"Which is TRUE about hashing?", opts:["The same hash can decrypt to multiple plaintexts","Hashing uses public and private keys","The output is always the same length regardless of input size","Hashing requires a shared secret key"], ans:2, exp:"Hash output is ALWAYS fixed length. SHA-256 always produces 256 bits, whether the input is 1 character or 1 GB. This is a fundamental hash property."},
+    {q:"3DES (Triple DES) is considered:", opts:["The most secure symmetric cipher available","A modern standard replacing AES","A legacy cipher being phased out","An asymmetric algorithm"], ans:2, exp:"3DES = legacy. Slower than AES, smaller key sizes, being phased out. Still in some old payment systems. AES replaced it."}
+  ],
+  6: [
+    {q:"What information does a CSR (Certificate Signing Request) contain?", opts:["The applicant's private key","The CA's digital signature","The applicant's public key and identity information","The certificate's expiration date"], ans:2, exp:"CSR contains: your PUBLIC key (never your private key!) + your identity info (domain, organization, etc.). You send this to the CA to request a certificate."},
+    {q:"Which certificate type would you use to secure BOTH 'www.company.com' AND 'mail.company.com' AND 'vpn.company.com' with ONE certificate?", opts:["DV Certificate","Wildcard Certificate OR SAN Certificate","EV Certificate","Self-Signed Certificate"], ans:1, exp:"SAN = lists specific alternate domains. Wildcard = covers ALL subdomains. Both work here but SAN is more precise. The * in wildcard covers one level of subdomains."},
+    {q:"The chain of trust in PKI means:", opts:["All certificates are signed by the same CA","Certificates are linked from Root CA through Intermediate CA to end entity","Certificates expire and must be renewed in a chain","CAs share the same private key for trust"], ans:1, exp:"Chain of trust: Root CA (self-signed) → signs Intermediate CA cert → Intermediate CA signs your cert. Browser verifies each link back to a trusted root."},
+    {q:"Why is it important to keep the Root CA OFFLINE (air-gapped)?", opts:["To reduce certificate issuance speed","To comply with X.509 standard","If the Root CA private key is compromised, ALL certificates in that hierarchy become untrusted","Offline Root CAs issue longer-validity certificates"], ans:2, exp:"Root CA compromise = catastrophic. Every certificate it ever issued or that chains to it becomes untrustworthy. Offline = air-gapped = nearly impossible to compromise remotely."},
+    {q:"CRL stands for:", opts:["Certificate Renewal List","Certificate Revocation List","Cryptographic Registration Log","Certificate Reissue Limit"], ans:1, exp:"CRL = Certificate Revocation List. A downloadable file from the CA listing all revoked certificate serial numbers. The weakness: it can be stale/outdated."},
+    {q:"A website's certificate was valid yesterday but today it shows as 'Invalid.' The most likely reason is:", opts:["The certificate was renewed","The server was patched","The certificate was revoked or expired","The CA changed its root certificate"], ans:2, exp:"Certificates become invalid when: they EXPIRE (passed end date) or are REVOKED (reported compromised). Both cause immediate browser trust failure."},
+    {q:"OCSP Stapling improves on standard OCSP by:", opts:["Providing longer certificate validity","Having the CLIENT check revocation status","Having the SERVER pre-fetch and include the OCSP response in the TLS handshake","Eliminating the need for revocation checks"], ans:2, exp:"Stapling = server does the OCSP legwork and staples the signed response to the TLS handshake. Client gets the answer without making a separate OCSP request = faster + more private."},
+    {q:"An EV (Extended Validation) certificate differs from a DV certificate because:", opts:["EV uses stronger encryption","EV certificates never expire","EV requires thorough legal entity verification by the CA","EV certificates are self-signed"], ans:2, exp:"EV = CA extensively verifies the legal existence of the organization. More expensive, time-consuming, but highest trust level. Shows company name in older browser address bars."},
+    {q:"What is the role of a Registration Authority (RA) in PKI?", opts:["Signs certificates with the root CA's private key","Handles identity verification on behalf of the CA","Stores all private keys securely","Issues CRL updates"], ans:1, exp:"RA = offloads identity verification from the CA. CA still signs. RA confirms 'yes, this organization is who they claim to be.' Division of labor in PKI."},
+    {q:"An X.509 certificate does NOT contain which of the following?", opts:["Subject's public key","Issuer's digital signature","Certificate expiration dates","Subject's private key"], ans:3, exp:"X.509 NEVER contains the private key. If a certificate contained a private key, the entire security model would collapse. Certificates contain the PUBLIC key only."}
+  ],
+  7: [
+    {q:"A user provides a username and password, then receives an SMS code they must enter. What type of authentication is this?", opts:["Single-Factor Authentication","Two-Step Verification (Something You Know × 2)","Multi-Factor Authentication","Biometric Authentication"], ans:2, exp:"Password (something you know) + SMS code from phone (something you HAVE) = two DIFFERENT factor types = MFA. True MFA requires different factor categories."},
+    {q:"Kerberos requires that client and server clocks be synchronized within:", opts:["1 minute","5 minutes","15 minutes","1 hour"], ans:1, exp:"5-minute window. If clocks drift more than 5 minutes, Kerberos rejects tickets (replay attack prevention). Use NTP to keep clocks in sync."},
+    {q:"PAP (Password Authentication Protocol) is dangerous because:", opts:["It uses too many rounds of hashing","It transmits passwords in cleartext","It requires two-factor authentication","It's incompatible with RADIUS"], ans:1, exp:"PAP = sends the actual password in PLAINTEXT. Anyone capturing the network traffic sees the password immediately. Never use PAP on untrusted networks."},
+    {q:"TACACS+ is preferred over RADIUS for network device administration because:", opts:["TACACS+ uses UDP for faster performance","TACACS+ encrypts only the password field","TACACS+ encrypts the ENTIRE packet payload","TACACS+ is an open standard"], ans:2, exp:"TACACS+ full packet encryption = more secure. RADIUS only encrypts the password field. Also, TACACS+ cleanly separates Authentication, Authorization, and Accounting (AAA)."},
+    {q:"A biometric system with a high FAR (False Acceptance Rate) has which security problem?", opts:["It rejects too many authorized users","It is too difficult to enroll","It lets unauthorized users authenticate as authorized","It requires too many samples"], ans:2, exp:"High FAR = system too permissive. Wrong people are getting accepted. FAR = False ACCEPTANCE = bad guys getting in. FRR = False REJECTION = good guys being locked out."},
+    {q:"In the Kerberos process, what does the TGT allow the user to do?", opts:["Log in to the domain controller","Request service tickets from the TGS without re-entering their password","Decrypt service responses from application servers","Connect directly to file shares"], ans:1, exp:"TGT = 'master ticket.' Present it to the TGS to get specific service tickets for each resource you want to access — all WITHOUT re-entering your password. That's what makes it SSO."},
+    {q:"An attacker captures an NTLM password hash and uses it directly to authenticate without cracking it. This is called:", opts:["Dictionary Attack","Rainbow Table Attack","Pass the Hash","Credential Stuffing"], ans:2, exp:"Pass the Hash = use the captured hash AS the credential, bypassing the need to crack it. NTLM is vulnerable to this. Kerberos and MFA defeat it."},
+    {q:"Which authentication factor is HARDEST to change if compromised?", opts:["Password","Smart card","Biometrics (fingerprint/iris)","OTP token"], ans:2, exp:"Biometrics can't be changed — you can't get a new fingerprint or iris. If biometric data is leaked, it's permanently compromised. This is a major downside of 'something you are.'"},
+    {q:"LDAP typically runs on port ___; LDAPS (secure) runs on port ___.", opts:["389 / 636","443 / 389","636 / 389","88 / 636"], ans:0, exp:"LDAP = port 389 (unencrypted, cleartext queries). LDAPS = port 636 (LDAP over TLS). Kerberos = port 88. HTTPS = 443."},
+    {q:"Behavioral biometrics (like typing rhythm) provide what advantage over traditional biometrics?", opts:["They're cheaper to implement","They enable CONTINUOUS authentication throughout a session","They can't be spoofed","They work without internet access"], ans:1, exp:"Behavioral biometrics = continuous authentication. Not just at login — constantly verifying it's really you based on HOW you interact. If someone else takes over mid-session, patterns change and alert."}
+  ]
+};
+
+const blockState = {};
+
+function renderBlock(n) {
+  const qs = QUIZZES[n];
+  blockState[n] = { scores: 0, answered: 0, total: qs.length };
+  const container = document.getElementById('qqlist' + n);
+  container.innerHTML = '';
+  document.getElementById('qpbar' + n).style.width = '0%';
+  document.getElementById('qsummary' + n).classList.remove('show');
+  document.getElementById('qscore' + n).style.display = 'none';
+  qs.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'big-q-card';
+    card.id = `qq_${n}_${i}`;
+    const optsHtml = item.opts.map((o, oi) =>
+      `<button class="opt" onclick="bigAns(${n},${i},${oi})">${o}</button>`
+    ).join('');
+    card.innerHTML = `
+      <div class="big-q-text"><span class="big-q-num">Q${i+1}/${qs.length}</span>${item.q}</div>
+      <div class="opts">${optsHtml}</div>
+      <div class="feedback" id="bfb_${n}_${i}"></div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function bigAns(n, qi, selected) {
+  const qs = QUIZZES[n];
+  const item = qs[qi];
+  const card = document.getElementById(`qq_${n}_${qi}`);
+  const grp = card.querySelector('.opts');
+  if (grp.querySelector('.correct,.wrong')) return;
+  grp.querySelectorAll('.opt').forEach(b => b.classList.add('disabled'));
+  const opts = grp.querySelectorAll('.opt');
+  const fb = document.getElementById(`bfb_${n}_${qi}`);
+  if (selected === item.ans) {
+    opts[selected].classList.add('correct');
+    fb.classList.add('show','fb-ok');
+    fb.textContent = '✅ ' + item.exp;
+    blockState[n].scores++;
+  } else {
+    opts[selected].classList.add('wrong');
+    opts[item.ans].classList.add('correct');
+    fb.classList.add('show','fb-no');
+    fb.textContent = '❌ ' + item.exp;
+  }
+  blockState[n].answered++;
+  const pct = (blockState[n].answered / blockState[n].total) * 100;
+  document.getElementById('qpbar' + n).style.width = pct + '%';
+  if (blockState[n].answered === blockState[n].total) {
+    setTimeout(() => showSummary(n), 600);
+  }
+}
+
+function showSummary(n) {
+  const s = blockState[n];
+  const pct = Math.round((s.scores / s.total) * 100);
+  const sum = document.getElementById('qsummary' + n);
+  document.getElementById('qbig' + n).textContent = `${s.scores}/${s.total} (${pct}%)`;
+  const msgs = pct >= 90 ? "🔥 Excellent! You're ready for this lesson." :
+               pct >= 70 ? "👍 Good job! Review the ones you missed." :
+               pct >= 50 ? "📚 Keep studying — revisit the lesson notes." :
+               "💪 Don't give up! Re-read the lesson and retry.";
+  document.getElementById('qmsg' + n).textContent = msgs;
+  sum.classList.add('show');
+  // update header score
+  const scoreEl = document.getElementById('qscore' + n);
+  scoreEl.textContent = `${pct}%`;
+  scoreEl.style.display = 'inline-block';
+  scoreEl.style.background = pct >= 70 ? 'rgba(34,201,122,0.1)' : 'rgba(240,82,82,0.1)';
+  scoreEl.style.color = pct >= 70 ? 'var(--l3)' : 'var(--l2)';
+}
+
+function resetBlock(n) {
+  renderBlock(n);
+}
+
+function toggleBlock(n) {
+  const body = document.getElementById('qbody' + n);
+  const hdr = document.querySelector(`#qblock${n} .lqb-header`);
+  const isOpen = body.classList.contains('open');
+  if (isOpen) {
+    body.classList.remove('open');
+    hdr.classList.remove('open');
+  } else {
+    body.classList.add('open');
+    hdr.classList.add('open');
+    if (!blockState[n]) renderBlock(n);
+  }
+}
+
+// Init all blocks
+for (let i = 1; i <= 7; i++) {
+  document.getElementById('qcount' + i).textContent = QUIZZES[i].length + ' questions';
+}
+</script>
+</body>
+</html>
